@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════
-   Nitin Khatri — Premium Portfolio Script
+   Nitin Khatri — Master Portfolio Script
    ═══════════════════════════════════ */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -17,34 +17,59 @@ document.addEventListener('DOMContentLoaded', () => {
 
     revealEls.forEach(el => revealObs.observe(el));
 
-    /* ── Counter Animation ── */
+    /* ── Advanced Counter Animation ── */
     const counters = document.querySelectorAll('[data-target]');
     const counterObs = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const el = entry.target;
-                const target = parseInt(el.getAttribute('data-target'));
+                const targetVal = parseFloat(el.getAttribute('data-target'));
                 const duration = 2000;
                 let startTime = null;
 
                 const animate = (timestamp) => {
                     if (!startTime) startTime = timestamp;
                     const progress = Math.min((timestamp - startTime) / duration, 1);
-                    const currentCount = Math.floor(progress * target);
                     
-                    // Add suffix based on context if needed
+                    // Calculation for decimals or integers
+                    let currentCount = progress * targetVal;
+                    
+                    // Suffix detection based on text content
+                    const label = el.parentElement.querySelector('p').textContent.toLowerCase();
                     let suffix = '';
-                    if (el.parentElement.querySelector('p').textContent.includes('Satisfaction')) suffix = '%';
-                    if (el.parentElement.querySelector('p').textContent.includes('Views')) suffix = 'M+';
-                    if (el.parentElement.querySelector('p').textContent.includes('Years')) suffix = '+';
-                    if (el.parentElement.querySelector('p').textContent.includes('Completed')) suffix = '+';
+                    let displayVal = '';
 
-                    el.textContent = currentCount + suffix;
+                    if (label.includes('reached')) {
+                        suffix = 'M';
+                        displayVal = currentCount.toFixed(2);
+                    } else if (label.includes('shares')) {
+                        suffix = 'K';
+                        displayVal = currentCount.toFixed(1);
+                    } else if (label.includes('likes') || label.includes('impressions')) {
+                        suffix = 'K';
+                        displayVal = Math.floor(currentCount);
+                    } else if (label.includes('views')) {
+                        suffix = 'M+';
+                        displayVal = Math.floor(currentCount);
+                    } else if (label.includes('%')) {
+                        suffix = '%';
+                        displayVal = Math.floor(currentCount);
+                    } else if (label.includes('years') || label.includes('completed') || label.includes('works') || label.includes('projects') || label.includes('videos')) {
+                        suffix = '+';
+                        displayVal = Math.floor(currentCount);
+                    } else {
+                        displayVal = Math.floor(currentCount);
+                    }
+
+                    el.textContent = displayVal + suffix;
 
                     if (progress < 1) {
                         requestAnimationFrame(animate);
                     } else {
-                        el.textContent = target + suffix;
+                        // Ensure final value is exact
+                        if (suffix === 'M') el.textContent = targetVal.toFixed(2) + suffix;
+                        else if (suffix === 'K' && label.includes('shares')) el.textContent = targetVal.toFixed(1) + suffix;
+                        else el.textContent = targetVal + suffix;
                     }
                 };
 
@@ -60,13 +85,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const nav = document.querySelector('.nav');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
-            nav.style.background = 'rgba(10, 10, 10, 0.8)';
+            nav.style.background = 'rgba(10, 10, 10, 0.9)';
             nav.style.height = '60px';
             nav.style.top = '1rem';
+            nav.style.padding = '0 1.5rem';
         } else {
             nav.style.background = 'rgba(10, 10, 10, 0.4)';
             nav.style.height = '70px';
             nav.style.top = '2rem';
+            nav.style.padding = '0 2rem';
         }
     }, { passive: true });
 
@@ -79,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
-                const offset = 100; // Adjust for sticky nav
+                const offset = 100;
                 const elementPosition = targetElement.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.pageYOffset - offset;
 
@@ -91,19 +118,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    /* ── Optional: Mouse Hover Parallax for Hero ── */
-    const hero = document.querySelector('.hero');
-    if (hero) {
-        hero.addEventListener('mousemove', (e) => {
-            const { clientX, clientY } = e;
-            const xPos = (clientX / window.innerWidth - 0.5) * 20;
-            const yPos = (clientY / window.innerHeight - 0.5) * 20;
-            
-            const title = hero.querySelector('.hero-title');
-            if (title) {
-                title.style.transform = `translate(${xPos}px, ${yPos}px)`;
-            }
+    /* ── Fade-in Stagger for Grid Children ── */
+    document.querySelectorAll('.toolkit-grid, .services-grid').forEach(grid => {
+        const children = grid.children;
+        Array.from(children).forEach((child, i) => {
+            child.classList.add('reveal');
+            child.style.transitionDelay = `${i * 0.1}s`;
         });
-    }
+    });
 
 });
