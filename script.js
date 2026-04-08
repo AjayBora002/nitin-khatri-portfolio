@@ -3,6 +3,30 @@
    ═══════════════════════════════════ */
 
 document.addEventListener('DOMContentLoaded', () => {
+    /* ── MOBILE NAVBAR LOGIC ── */
+    const initMobileNav = () => {
+        const toggle = document.getElementById('nav-toggle');
+        const overlay = document.getElementById('nav-overlay');
+        const overlayLinks = document.querySelectorAll('.nav-overlay-links a');
+
+        if (!toggle || !overlay) return;
+
+        toggle.addEventListener('click', () => {
+            toggle.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.classList.toggle('nav-active');
+        });
+
+        overlayLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                toggle.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.classList.remove('nav-active');
+            });
+        });
+    };
+    initMobileNav();
+
     /* ── REGISTER GSAP PLUGINS ── */
     gsap.registerPlugin(ScrollTrigger);
 
@@ -400,7 +424,12 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => {
             const filter = btn.getAttribute('data-filter');
             
-            // Update active button
+            // 1. Core Initializations
+            try {
+                initMobileNav();
+                initCinematicCursor();
+            } catch(e) {}
+            
             filterBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
