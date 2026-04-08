@@ -3,20 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nitin Khatri — Digital Artist, VFX Artist & 3D Designer</title>
-    <meta name="description" content="Nitin Khatri — Professional VFX Artist, 3D Modeler, and Graphic Designer. 5+ years experience. 2M+ Social views. Based in Noida.">
+    <title>Nitin Khatri — Graphic Designer, VFX Artist & CGI Specialist</title>
+    <meta name="description" content="Nitin Khatri — Professional Graphic Designer, VFX Artist, and CGI Specialist. 5+ years experience. 2M+ Social views. Based in Noida.">
     <link rel="stylesheet" href="style.css">
+    <!-- GSAP for Horizontal Scroll -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 <body>
+    <!-- Cinematic Loader -->
+    <div id="loader">
+        <div class="loader-content">
+            <div class="loader-logo">NK</div>
+            <div class="loader-line"></div>
+        </div>
+        <div class="loader-bg-top"></div>
+        <div class="loader-bg-bottom"></div>
+    </div>
+
+    <!-- Audio Ambience -->
+    <button id="audio-toggle" class="audio-btn" title="Toggle Ambience">
+        <span class="audio-icon">🔇</span>
+        <span class="audio-label">MONO_DRONE</span>
+    </button>
+    <audio id="ambient-drone" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Custom Cursor -->
+    <div id="cursor"></div>
+    <div id="cursor-blur"></div>
+
+    <!-- Cinematic Noise Overlay -->
+    <div class="noise-overlay"></div>
 
     <!-- ═══ NAVBAR ═══ -->
     <nav class="nav">
-        <div class="nav-logo">NITIN KHATRI</div>
+        <div class="nav-logo magnetic">NITIN KHATRI</div>
         <div class="nav-links">
             <a href="#about">About</a>
-            <a href="#toolkit">Skills</a>
-            <a href="#experience">Work</a>
             <a href="#impact">Social Proof</a>
+            <a href="#partners">Partners</a>
+            <a href="#toolkit">Skills</a>
+            <a href="#projects">Work</a>
+            <a href="#experience">Experience</a>
             <a href="#contact">Contact</a>
         </div>
         <a href="Resume_nitin.pdf" download class="btn-nav-cta">Resume ↓</a>
@@ -24,15 +54,18 @@
 
     <!-- ═══ HERO ═══ -->
     <section class="hero">
+        <div class="scanline"></div>
+        <div class="hero-blob"></div>
+        <canvas id="hero-particles"></canvas>
         <div class="container hero-content">
-            <div class="hero-tag reveal">✦ Digital Artist & Visual Storyteller</div>
-            <h1 class="hero-title reveal">Visuals that you<br>need Indeed</h1>
+            <div class="hero-tag reveal scramble-text">✦ Graphic Designer & VFX Artist</div>
+            <h1 class="hero-title reveal gradient-text">Architecting Digital<br>Realities</h1>
             <p class="hero-desc reveal">
-                I'm Nitin Khatri, a passionate Digital Artist and VFX specialist with 5+ years of experience. I create cinematic experiences that elevate brands through high-end 3D, VFX, and strategic design.
+                Nitin Khatri — VFX Supervisor and 3D Artist specializing in cinematic brand storytelling. Helping global labels and production houses achieve visual excellence through high-fidelity CGI, advanced VFX pipeline management, and strategic creative direction.
             </p>
             <div class="hero-actions reveal">
-                <a href="mailto:nitinkhatrivfx@gmail.com" class="btn-primary">Book a Free Call</a>
-                <a href="Resume_nitin.pdf" download class="btn-secondary">Download Resume</a>
+                <a href="mailto:nitinkhatri.vfx@gmail.com" class="btn-primary magnetic">Book a Free Call</a>
+                <a href="Resume_nitin.pdf" download class="btn-secondary magnetic">Download Resume</a>
             </div>
         </div>
 
@@ -41,17 +74,18 @@
             <path fill="rgba(255,255,255,0.05)" fill-opacity="1" d="M0,160L48,176C96,192,192,224,288,224C384,224,480,192,576,165.3C672,139,768,117,864,128C960,139,1056,181,1152,192C1248,203,1344,181,1392,170.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
         </svg>
     </section>
-
+    
     <!-- ═══ ABOUT ME ═══ -->
     <section class="container meet-section" id="about">
+        <div class="scanline"></div>
         <div class="reveal">
             <h2 class="meet-title">About Me</h2>
             <p class="meet-bio" style="font-size: 1.1rem; line-height: 1.8;">
-                Hi, I'm Nitin Khatri, a passionate Digital Artist, freelancer, and designer with a knack for storytelling, graphic design, VFX, and 3D Art. I love exploring innovative tools and strategies to make everyday tasks easier and more enjoyable.<br><br>
-                When I'm not working, you can find me learning new skills, experimenting with AI tools, or sipping coffee while brainstorming new ideas. I'm all about sharing insights and helping others achieve their goals.
+                I'm Nitin Khatri, a Digital Artist and VFX Supervisor driven by the pursuit of visual perfection. My expertise lies at the intersection of cinematic storytelling and technical innovation, where I bridge the gap between imagination and digital reality.<br><br>
+                With a specialized focus on high-end CGI, motion design, and production pipelines, I've dedicated my career to crafting experiences that resonate globally. My mission is to empower brands with the visual tools they need to lead their industries and capture audiences across every screen.
             </p>
             <div class="hero-actions" style="justify-content: flex-start; margin: 2rem 0;">
-                <a href="mailto:nitinkhatrivfx@gmail.com" class="btn-primary" style="padding: 0.8rem 2rem;">Let's connect!</a>
+                <a href="mailto:nitinkhatri.vfx@gmail.com" class="btn-primary" style="padding: 0.8rem 2rem;">Let's connect!</a>
             </div>
             
             <div class="footer-stats" style="border:none; padding:1.5rem 0;">
@@ -74,120 +108,401 @@
         </div>
     </section>
 
-    <!-- ═══ SOFTWARE SKILLS ═══ -->
-    <section class="container reveal" id="toolkit" style="padding-bottom: 120px;">
-        <div class="section-header">
-            <span class="section-tag">Toolkit</span>
-            <h2 class="section-title">Software Arsenal</h2>
-        </div>
-        <div class="toolkit-grid">
-            <div class="toolkit-card">
-                <span style="font-size: 2rem;">🎞️</span>
-                <span style="font-weight: 600;">After Effects</span>
-                <span class="tool-level">Expert</span>
+    <!-- ═══ SOCIAL IMPACT (INSTAGRAM) ═══ -->
+    <section class="container reveal" id="impact" style="padding-bottom: 150px;">
+        <div class="insight-container">
+            <div style="flex: 1;">
+                <span class="section-tag">Social Impact</span>
+                <h2 style="font-size: 3.5rem; font-weight: 800; margin-bottom: 1rem; line-height: 1.1;">2M+ Organic<br>Global Impressions</h2>
+                <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.6; margin-bottom: 2rem;">
+                    Leveraging narrative-driven content strategy and high-fidelity VFX to drive massive organic growth. My creative productions have secured over 2.5 million views across social platforms, building a digital legacy of premium visual engagement.
+                </p>
+                <div class="footer-stats" style="border:none; padding:0; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                    <div class="stat-item vfx-stat">
+                        <h3 data-target="1.85">1.8M</h3>
+                        <p>Accounts Reached</p>
+                        <div class="stat-bar"><div class="stat-fill" style="--percent: 85%;"></div></div>
+                    </div>
+                    <div class="stat-item design-stat">
+                        <h3 data-target="291">291K</h3>
+                        <p>Likes</p>
+                        <div class="stat-bar"><div class="stat-fill" style="--percent: 75%;"></div></div>
+                    </div>
+                    <div class="stat-item video-stat">
+                        <h3 data-target="89">89K</h3>
+                        <p>Shares</p>
+                        <div class="stat-bar"><div class="stat-fill" style="--percent: 65%;"></div></div>
+                    </div>
+                    <div class="stat-item social-stat">
+                        <h3 data-target="17">17K</h3>
+                        <p>Saves</p>
+                        <div class="stat-bar"><div class="stat-fill" style="--percent: 90%;"></div></div>
+                    </div>
+                </div>
             </div>
-            <div class="toolkit-card">
-                <span style="font-size: 2rem;">🎨</span>
-                <span style="font-weight: 600;">Photoshop</span>
-                <span class="tool-level">Expert</span>
-            </div>
-            <div class="toolkit-card">
-                <span style="font-size: 2rem;">🎬</span>
-                <span style="font-weight: 600;">Premiere Pro</span>
-                <span class="tool-level">Expert</span>
-            </div>
-            <div class="toolkit-card">
-                <span style="font-size: 2rem;">🔺</span>
-                <span style="font-weight: 600;">Blender 3D</span>
-                <span class="tool-level">Expert</span>
-            </div>
-            <div class="toolkit-card">
-                <span style="font-size: 2rem;">🌈</span>
-                <span style="font-weight: 600;">Lightroom CC</span>
-                <span class="tool-level">Expert</span>
-            </div>
-            <div class="toolkit-card">
-                <span style="font-size: 2rem;">🔥</span>
-                <span style="font-weight: 600;">Embergen</span>
-                <span class="tool-level">Expert</span>
-            </div>
-            <div class="toolkit-card">
-                <span style="font-size: 2rem;">🖌️</span>
-                <span style="font-weight: 600;">Substance Painter</span>
-                <span class="tool-level">Expert</span>
-            </div>
-            <div class="toolkit-card">
-                <span style="font-size: 2rem;">🧥</span>
-                <span style="font-weight: 600;">Marvelous Designer</span>
-                <span class="tool-level">Intermediate</span>
-            </div>
-            <div class="toolkit-card">
-                <span style="font-size: 2rem;">🏰</span>
-                <span style="font-weight: 600;">Maya</span>
-                <span class="tool-level">Intermediate</span>
-            </div>
-            <div class="toolkit-card">
-                <span style="font-size: 2rem;">🌐</span>
-                <span style="font-weight: 600;">Unreal Engine</span>
-                <span class="tool-level">Intermediate</span>
-            </div>
-            <div class="toolkit-card">
-                <span style="font-size: 2rem;">✂️</span>
-                <span style="font-weight: 600;">Capcut</span>
-                <span class="tool-level">Expert</span>
-            </div>
-            <div class="toolkit-card">
-                <span style="font-size: 2rem;">✨</span>
-                <span style="font-weight: 600;">Canva PRO</span>
-                <span class="tool-level">Expert</span>
-            </div>
-            <div class="toolkit-card">
-                <span style="font-size: 2rem;">📊</span>
-                <span style="font-weight: 600;">Meta Suite</span>
-                <span class="tool-level">Expert</span>
+            <div style="flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                <div class="glass-card" style="aspect-ratio: 9/16; border-radius: 20px; background: #050505 url('https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=400') center/cover;"></div>
+                <div class="glass-card" style="aspect-ratio: 9/16; border-radius: 20px; background: #050505 url('https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?auto=format&fit=crop&q=80&w=400') center/cover;"></div>
             </div>
         </div>
     </section>
 
-    <!-- ═══ AI TOOLS ═══ -->
-    <section class="container reveal" style="padding-bottom: 120px;">
-        <div class="section-header">
-            <span class="section-tag">Automation</span>
-            <h2 class="section-title">AI Powered Workflow</h2>
+    <!-- ═══ BRANDS & PRODUCTION HOUSES ═══ -->
+    <section class="section" id="partners" style="padding: 100px 0;">
+        <div class="container">
+            <div class="section-header" style="text-align: center; margin-bottom: 4rem;">
+                <span class="section-tag">Partners</span>
+                <h2 class="section-title">Brands & Production Houses</h2>
+                <p style="color: var(--text-muted); max-width: 600px; margin: 1rem auto;">I've had the privilege of collaborating with these industry leaders and creative studios.</p>
+            </div>
+            
+            <div class="toolkit-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+                <div class="toolkit-card glass-card branding-card" style="opacity: 1; transform: none; padding: 2.5rem 1.5rem;">
+                    <img src="assets/logos/zigly.png" alt="Zigly" class="brand-logo">
+                    <div class="brand-name">Zigly</div>
+                    <div style="font-size: 0.75rem; color: var(--text-dim);">For Happy Pets</div>
+                </div>
+                <div class="toolkit-card glass-card branding-card" style="opacity: 1; transform: none; padding: 2.5rem 1.5rem;">
+                    <img src="assets/logos/esthemax.png" alt="Esthemax" class="brand-logo">
+                    <div class="brand-name">Esthemax Professional</div>
+                </div>
+                <div class="toolkit-card glass-card branding-card" style="opacity: 1; transform: none; padding: 2.5rem 1.5rem;">
+                    <img src="assets/logos/memories_yard.png" alt="Memories Yard" class="brand-logo">
+                    <div class="brand-name">Memories Yard Studio</div>
+                </div>
+                <div class="toolkit-card glass-card branding-card" style="opacity: 1; transform: none; padding: 2.5rem 1.5rem;">
+                    <img src="assets/logos/ultraprolink.png" alt="Ultraprolink" class="brand-logo">
+                    <div class="brand-name">Ultraprolink</div>
+                </div>
+                <div class="toolkit-card glass-card branding-card" style="opacity: 1; transform: none; padding: 2.5rem 1.5rem;">
+                    <img src="assets/logos/rhino.png" alt="Production House" class="brand-logo">
+                    <div class="brand-name">Production Partner</div>
+                </div>
+                <div class="toolkit-card glass-card branding-card" style="opacity: 1; transform: none; padding: 2.5rem 1.5rem;">
+                    <img src="assets/logos/dhun_pahadi.png" alt="Dhun Pahad" class="brand-logo">
+                    <div class="brand-name">Dhun Pahadi Production</div>
+                </div>
+                <div class="toolkit-card glass-card branding-card" style="opacity: 1; transform: none; padding: 2.5rem 1.5rem;">
+                    <img src="assets/logos/hilly_harmonies.png" alt="Hilly Harmonies" class="brand-logo">
+                    <div class="brand-name">Hilly Harmonies</div>
+                </div>
+            </div>
         </div>
-        <div class="toolkit-grid">
-            <div class="toolkit-card">
-                <span style="font-size: 2rem;">🧠</span>
-                <span style="font-weight: 600;">ChatGPT</span>
+    </section>
+
+    <!-- ═══ SOFTWARE SKILLS ═══ -->
+    <section class="container reveal" id="toolkit" style="padding-bottom: 120px;">
+        <div class="section-header">
+            <span class="section-tag">Toolkit</span>
+            <h2 class="section-title">Software Skills</h2>
+            <div class="scanline"></div>
+            <div class="skill-tabs">
+                <button class="skill-tab active" data-filter="all">All</button>
+                <button class="skill-tab" data-filter="vfx">VFX</button>
+                <button class="skill-tab" data-filter="3d">3D</button>
+                <button class="skill-tab" data-filter="video">Video</button>
+                <button class="skill-tab" data-filter="design">Design</button>
             </div>
-            <div class="toolkit-card">
-                <span style="font-size: 2rem;">✨</span>
-                <span style="font-weight: 600;">Gemini</span>
+        </div>
+            <div class="toolkit-card-3d" data-category="vfx">
+                <div class="card-inner">
+                    <div class="card-front glass-card">
+                        <div class="tool-icon">🎞️</div>
+                        <span class="tool-name">After Effects</span>
+                        <div class="skill-progress-bar">
+                            <div class="skill-progress" style="--percent: 95%;"></div>
+                        </div>
+                        <span class="tool-level">Expert</span>
+                    </div>
+                    <div class="card-back glass-card">
+                        <p>Master of compositing, motion graphics, and high-end cinematic color grading.</p>
+                    </div>
+                </div>
             </div>
-            <div class="toolkit-card">
-                <span style="font-size: 2rem;">⚡</span>
-                <span style="font-weight: 600;">Simplified AI</span>
+            <div class="toolkit-card-3d" data-category="design">
+                <div class="card-inner">
+                    <div class="card-front glass-card">
+                        <div class="tool-icon">🎨</div>
+                        <span class="tool-name">Photoshop</span>
+                        <div class="skill-progress-bar">
+                            <div class="skill-progress" style="--percent: 90%;"></div>
+                        </div>
+                        <span class="tool-level">Expert</span>
+                    </div>
+                    <div class="card-back glass-card">
+                        <p>Specializing in 100+ creative compositions, poster designs, and professional texturing for high-end digital assets.</p>
+                    </div>
+                </div>
             </div>
-            <div class="toolkit-card">
-                <span style="font-size: 2rem;">🎥</span>
-                <span style="font-weight: 600;">Kling AI</span>
+            <div class="toolkit-card-3d" data-category="video">
+                <div class="card-inner">
+                    <div class="card-front glass-card">
+                        <div class="tool-icon">🎬</div>
+                        <span class="tool-name">Premiere Pro</span>
+                        <div class="skill-progress-bar">
+                            <div class="skill-progress" style="--percent: 88%;"></div>
+                        </div>
+                        <span class="tool-level">High</span>
+                    </div>
+                    <div class="card-back glass-card">
+                        <p>Dynamic video editing with a focus on cinematic storytelling, pacing, and multi-track sound design.</p>
+                    </div>
+                </div>
             </div>
-            <div class="toolkit-card">
-                <span style="font-size: 2rem;">🎞️</span>
-                <span style="font-weight: 600;">Vmake AI</span>
+            <div class="toolkit-card-3d" data-category="3d">
+                <div class="card-inner">
+                    <div class="card-front glass-card">
+                        <div class="tool-icon">🔺</div>
+                        <span class="tool-name">Blender 3D</span>
+                        <div class="skill-progress-bar">
+                            <div class="skill-progress" style="--percent: 85%;"></div>
+                        </div>
+                        <span class="tool-level">Expert</span>
+                    </div>
+                    <div class="card-back glass-card">
+                        <p>Advanced 3D modeling, lighting, and photorealistic rendering using Cycles and Eevee engines.</p>
+                    </div>
+                </div>
             </div>
-            <div class="toolkit-card">
-                <span style="font-size: 2rem;">🗿</span>
-                <span style="font-weight: 600;">Meshy AI</span>
+            <div class="toolkit-card-3d" data-category="design">
+                <div class="card-inner">
+                    <div class="card-front glass-card">
+                        <div class="tool-icon">🌈</div>
+                        <span class="tool-name">Lightroom CC</span>
+                        <div class="skill-progress-bar">
+                            <div class="skill-progress" style="--percent: 80%;"></div>
+                        </div>
+                        <span class="tool-level">High</span>
+                    </div>
+                    <div class="card-back glass-card">
+                        <p>Mastering color theory and professional photo retouching for high-impact visual branding.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="toolkit-card-3d" data-category="vfx">
+                <div class="card-inner">
+                    <div class="card-front glass-card">
+                        <div class="tool-icon">🔥</div>
+                        <span class="tool-name">Embergen</span>
+                        <div class="skill-progress-bar">
+                            <div class="skill-progress" style="--percent: 75%;"></div>
+                        </div>
+                        <span class="tool-level">Intermediate</span>
+                    </div>
+                    <div class="card-back glass-card">
+                        <p>Real-time volumetric simulation for high-end fire, smoke, and magical VFX.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="toolkit-card-3d" data-category="3d">
+                <div class="card-inner">
+                    <div class="card-front glass-card">
+                        <div class="tool-icon">🖌️</div>
+                        <span class="tool-name">Substance Painter</span>
+                        <div class="skill-progress-bar">
+                            <div class="skill-progress" style="--percent: 75%;"></div>
+                        </div>
+                        <span class="tool-level">Intermediate</span>
+                    </div>
+                    <div class="card-back glass-card">
+                        <p>Industry-standard PBR texturing and procedural material creation for game-ready 3D assets.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="toolkit-card-3d" data-category="3d">
+                <div class="card-inner">
+                    <div class="card-front glass-card">
+                        <div class="tool-icon">🧥</div>
+                        <span class="tool-name">Marvelous Designer</span>
+                        <div class="skill-progress-bar">
+                            <div class="skill-progress" style="--percent: 70%;"></div>
+                        </div>
+                        <span class="tool-level">Intermediate</span>
+                    </div>
+                    <div class="card-back glass-card">
+                        <p>Creating realistic high-fidelity digital fabric and character clothing.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="toolkit-card-3d" data-category="3d">
+                <div class="card-inner">
+                    <div class="card-front glass-card">
+                        <div class="tool-icon">🏰</div>
+                        <span class="tool-name">Maya</span>
+                        <div class="skill-progress-bar">
+                            <div class="skill-progress" style="--percent: 65%;"></div>
+                        </div>
+                        <span class="tool-level">Intermediate</span>
+                    </div>
+                    <div class="card-back glass-card">
+                        <p>Industry-standard 3D animation, rigging, and complex scene layout.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="toolkit-card-3d" data-category="3d">
+                <div class="card-inner">
+                    <div class="card-front glass-card">
+                        <div class="tool-icon">🌐</div>
+                        <span class="tool-name">Unreal Engine</span>
+                        <div class="skill-progress-bar">
+                            <div class="skill-progress" style="--percent: 60%;"></div>
+                        </div>
+                        <span class="tool-level">Intermediate</span>
+                    </div>
+                    <div class="card-back glass-card">
+                        <p>Driving the future of real-time virtual production and cinematic environments.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="toolkit-card-3d" data-category="video">
+                <div class="card-inner">
+                    <div class="card-front glass-card">
+                        <div class="tool-icon">✂️</div>
+                        <span class="tool-name">Capcut</span>
+                        <div class="skill-progress-bar">
+                            <div class="skill-progress" style="--percent: 90%;"></div>
+                        </div>
+                        <span class="tool-level">Expert</span>
+                    </div>
+                    <div class="card-back glass-card">
+                        <p>Fast, effective social media editing with optimized mobile pacing.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="toolkit-card-3d" data-category="design">
+                <div class="card-inner">
+                    <div class="card-front glass-card">
+                        <div class="tool-icon">✨</div>
+                        <span class="tool-name">Canva PRO</span>
+                        <div class="skill-progress-bar">
+                            <div class="skill-progress" style="--percent: 95%;"></div>
+                        </div>
+                        <span class="tool-level">Expert</span>
+                    </div>
+                    <div class="card-back glass-card">
+                        <p>Strategic social media design and high-velocity asset creation.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="toolkit-card-3d" data-category="social">
+                <div class="card-inner">
+                    <div class="card-front glass-card">
+                        <div class="tool-icon">📊</div>
+                        <span class="tool-name">Meta Business Suite</span>
+                        <div class="skill-progress-bar">
+                            <div class="skill-progress" style="--percent: 85%;"></div>
+                        </div>
+                        <span class="tool-level">Expert</span>
+                    </div>
+                    <div class="card-back glass-card">
+                        <p>Data-driven strategy for social growth and audience engagement.</p>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <!-- ═══ AI POWERED WORKFLOW ═══ -->
+    <section class="section" id="ai-workflow" style="padding: 100px 0;">
+        <div class="container">
+            <div class="section-header" style="text-align: center; margin-bottom: 4rem;">
+                <span class="section-tag">Automation</span>
+                <h2 class="section-title">AI Powered Workflow</h2>
+                <p style="color: var(--text-muted); max-width: 600px; margin: 1rem auto;">Integrating next-gen AI tools to accelerate creativity and production efficiency.</p>
+            </div>
+            
+            <div class="toolkit-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                <div class="toolkit-card glass-card" style="opacity: 1; transform: none;">
+                    <div style="font-size: 3rem; margin-bottom: 1.5rem; filter: drop-shadow(0 0 15px rgba(16, 185, 129, 0.4));">🧠</div>
+                    <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;">ChatGPT</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-dim);">Ideation & Scripting</p>
+                </div>
+                <div class="toolkit-card glass-card" style="opacity: 1; transform: none;">
+                    <div style="font-size: 3rem; margin-bottom: 1.5rem; filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.4));">✨</div>
+                    <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;">Gemini</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-dim);">Creative Research</p>
+                </div>
+                <div class="toolkit-card glass-card" style="opacity: 1; transform: none;">
+                    <div style="font-size: 3rem; margin-bottom: 1.5rem; filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.4));">⚡</div>
+                    <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;">Simplified AI</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-dim);">Design Automation</p>
+                </div>
+                <div class="toolkit-card glass-card" style="opacity: 1; transform: none;">
+                    <div style="font-size: 3rem; margin-bottom: 1.5rem; filter: drop-shadow(0 0 15px rgba(236, 72, 153, 0.4));">🎥</div>
+                    <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;">Kling AI</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-dim);">Generative Video</p>
+                </div>
+                <div class="toolkit-card glass-card" style="opacity: 1; transform: none;">
+                    <div style="font-size: 3rem; margin-bottom: 1.5rem; filter: drop-shadow(0 0 15px rgba(139, 92, 246, 0.4));">🎞️</div>
+                    <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;">Vmake AI</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-dim);">VFX Processing</p>
+                </div>
+                <div class="toolkit-card glass-card" style="opacity: 1; transform: none;">
+                    <div style="font-size: 3rem; margin-bottom: 1.5rem; filter: drop-shadow(0 0 15px rgba(6, 182, 212, 0.4));">🗿</div>
+                    <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;">Meshy AI</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-dim);">3D Asset Gen</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SELECTED WORK (BENTO GRID) ═══ -->
+    <section id="projects" class="container reveal" style="padding: 100px 0;">
+        <div class="showcase-layout">
+            <div class="showcase-header">
+                <span class="section-tag">Showcase</span>
+                <h2 class="section-title">Selected<br>Work</h2>
+            </div>
+            
+            <div class="projects-bento-grid">
+                <!-- Project 1 (FEAUTURED) -->
+                <div class="project-card-bento featured glass-card reveal">
+                    <div class="project-thumb" style="background-image: url('https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&q=80&w=800');"></div>
+                    <div class="project-info">
+                        <span class="project-tag">VFX</span>
+                        <h3 class="project-title">The BHAIRON Chronicles</h3>
+                        <p class="project-desc">Full VFX Supervision and high-end CGI integration for a cinematic action sequence. Focused on environment optimization and lighting.</p>
+                        <a href="#" class="view-details-link">View Details →</a>
+                    </div>
+                </div>
+                <!-- Project 2 -->
+                <div class="project-card-bento glass-card reveal">
+                    <div class="project-thumb" style="background-image: url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&q=80&w=800');"></div>
+                    <div class="project-info">
+                        <span class="project-tag">3D Design</span>
+                        <h3 class="project-title">UltraPro Evolution Ad</h3>
+                        <p class="project-desc">Hyper-realistic 3D product motion design for a global tech launch campaign. Created within a high-velocity production pipeline.</p>
+                        <a href="#" class="view-details-link">View Details →</a>
+                    </div>
+                </div>
+                <!-- Project 3 -->
+                <div class="project-card-bento glass-card reveal">
+                    <div class="project-thumb" style="background-image: url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=800');"></div>
+                    <div class="project-info">
+                        <span class="project-tag">Animation</span>
+                        <h3 class="project-title">Dhun Pahadi Production</h3>
+                        <p class="project-desc">Cinematic mixed media animation and 3D environment layout for a cultural documentary series.</p>
+                        <a href="#" class="view-details-link">View Details →</a>
+                    </div>
+                </div>
+                <!-- Project 4 -->
+                <div class="project-card-bento glass-card reveal">
+                    <div class="project-thumb" style="background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800');"></div>
+                    <div class="project-info">
+                        <span class="project-tag">CGI</span>
+                        <h3 class="project-title">Neo-Tokyo Virtual Production</h3>
+                        <p class="project-desc">Real-time environment art created in Unreal Engine 5.1, utilizing Lumen and Nanite for high-fidelity interactive playback.</p>
+                        <a href="#" class="view-details-link">View Details →</a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- ═══ EXPERIENCE ═══ -->
-    <section class="container reveal" id="experience" style="padding-bottom: 150px;">
+    <section class="container reveal" id="experience" style="padding-bottom: 120px;">
         <div class="section-header">
             <span class="section-tag">Journey</span>
-            <h2 class="section-title">Industry Experience</h2>
+            <h2 class="section-title">Experience</h2>
         </div>
         <div class="services-grid" style="grid-template-columns: 1fr;">
             <div class="glass-card reveal" style="padding: 2.5rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 2rem;">
@@ -195,28 +510,28 @@
                     <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Senior Photo & Video Editor</h3>
                     <p style="color: var(--text-dim); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em;">Memories Yard Studio • 2024–2025</p>
                 </div>
-                <p style="max-width: 500px; color: var(--text-muted); font-size: 1rem; line-height: 1.6;">Key role delivering cinematic reels, photo edits & productions. Achieved 90% client satisfaction across 90+ clients.</p>
+                <p style="max-width: 500px; color: var(--text-muted); font-size: 1rem; line-height: 1.6;">Spearheaded high-end cinematic content production, achieving a 90% client retention rate through innovative visual solutions and standard-setting quality control.</p>
             </div>
             <div class="glass-card reveal" style="padding: 2.5rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 2rem;">
                 <div>
                     <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">VFX Director & Supervisor</h3>
                     <p style="color: var(--text-dim); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em;">Hilly Harmonies Production • Project Based</p>
                 </div>
-                <p style="max-width: 500px; color: var(--text-muted); font-size: 1rem; line-height: 1.6;">Supervised full VFX pipeline for the movie "The Rise of BHAIRON" — from pre-vis to final composite.</p>
+                <p style="max-width: 500px; color: var(--text-muted); font-size: 1rem; line-height: 1.6;">Directed the full VFX pipeline for the "BHAIRON" production—from initial pre-visualization to final high-fidelity compositing.</p>
             </div>
             <div class="glass-card reveal" style="padding: 2.5rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 2rem;">
                 <div>
                     <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">3D Artist & Graphic Designer</h3>
                     <p style="color: var(--text-dim); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em;">UltraPro Link Pvt Ltd • Previous</p>
                 </div>
-                <p style="max-width: 500px; color: var(--text-muted); font-size: 1rem; line-height: 1.6;">Created 5+ high-end 3D advertisements and managed 50+ infographics for the company.</p>
+                <p style="max-width: 500px; color: var(--text-muted); font-size: 1rem; line-height: 1.6;">Architected 50+ high-fidelity infographics and 3D marketing assets, significantly elevating the brand's digital presence in the tech sector.</p>
             </div>
             <div class="glass-card reveal" style="padding: 2.5rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 2rem;">
                 <div>
                     <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Cinematographer & Social Manager</h3>
                     <p style="color: var(--text-dim); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em;">Studio Parsons • Previous</p>
                 </div>
-                <p style="max-width: 500px; color: var(--text-muted); font-size: 1rem; line-height: 1.6;">Managed song production, filming, and social media strategy for multiple music releases.</p>
+                <p style="max-width: 500px; color: var(--text-muted); font-size: 1rem; line-height: 1.6;">Oversaw full-cycle music video production and strategic social media management for multiple high-reaching independent releases.</p>
             </div>
         </div>
     </section>
@@ -228,78 +543,42 @@
             <h2 class="section-title">Academic Background</h2>
         </div>
         <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-year">2023 – 2026</div>
-                <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">BSc in Animation & VFX</h3>
-                <p style="color: var(--text-muted);">Asian Academy of Film & Television • Film City, Noida</p>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-year">Until 2023</div>
-                <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Higher Secondary Graduation (CBSE)</h3>
-                <p style="color: var(--text-muted);">Scholars' Academic Home • Haldwani, Uttarakhand</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ SOCIAL IMPACT (INSTAGRAM) ═══ -->
-    <section class="container reveal" id="impact" style="padding-bottom: 150px;">
-        <div class="insight-container">
-            <div style="flex: 1;">
-                <span class="section-tag">Social Impact</span>
-                <h2 style="font-size: 4rem; font-weight: 800; margin-bottom: 2rem;">2.9M+<br>Impressions</h2>
-                <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.7; margin-bottom: 2.5rem;">
-                    Through organic reach and cinematic storytelling on Instagram, I've managed to build an audience that resonates with premium visual content.
-                </p>
-                <div class="footer-stats" style="border:none; padding:0; grid-template-columns: repeat(2, 1fr);">
-                    <div class="stat-item">
-                        <h3 data-target="1.85">1.8M</h3>
-                        <p>Accounts Reached</p>
-                    </div>
-                    <div class="stat-item">
-                        <h3 data-target="291">291K</h3>
-                        <p>Likes</p>
-                    </div>
-                    <div class="stat-item">
-                        <h3 data-target="88.9">88K</h3>
-                        <p>Shares</p>
-                    </div>
-                    <div class="stat-item">
-                        <h3 data-target="50">50+</h3>
-                        <p>Video Edits</p>
+            <div class="timeline-item reveal" data-side="left">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content glass-card">
+                    <div class="timeline-year">2023 – 2026</div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;" class="odometer-parent"><span class="odometer-digit" data-value="B">B</span>Sc in Animation & VFX</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 1rem;">Asian Academy of Film & Television • Film City, Noida</p>
+                    <div class="timeline-details">
+                        <span class="tool-level">Cinematography</span>
+                        <span class="tool-level">3D Art</span>
+                        <span class="tool-level">Post-Production</span>
                     </div>
                 </div>
             </div>
-            <div style="flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-                <div class="glass-card" style="aspect-ratio: 9/16; border-radius: 20px; background: #050505 url('https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=400') center/cover;"></div>
-                <div class="glass-card" style="aspect-ratio: 9/16; border-radius: 20px; background: #050505 url('https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?auto=format&fit=crop&q=80&w=400') center/cover;"></div>
+            <div class="timeline-item reveal" data-side="right">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content glass-card">
+                    <div class="timeline-year">Until 2023</div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Higher Secondary Graduation (CBSE)</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 1rem;">Scholars' Academic Home • Haldwani, Uttarakhand</p>
+                    <div class="timeline-details">
+                        <span class="tool-level">Science Stream</span>
+                        <span class="tool-level">Creative Arts</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- ═══ BRANDS ═══ -->
-    <section class="container reveal" style="padding-bottom: 150px;">
-        <div class="section-header">
-            <span class="section-tag">Partners</span>
-            <h2 class="section-title">Brands & Production Houses</h2>
-        </div>
-        <div class="toolkit-grid" style="grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));">
-            <div class="toolkit-card" style="padding: 2.5rem;">Zigly</div>
-            <div class="toolkit-card" style="padding: 2.5rem;">Esthemax</div>
-            <div class="toolkit-card" style="padding: 2.5rem;">Memories Yard</div>
-            <div class="toolkit-card" style="padding: 2.5rem;">Ultraprolink</div>
-            <div class="toolkit-card" style="padding: 2.5rem;">Dhun Pahadi</div>
-            <div class="toolkit-card" style="padding: 2.5rem;">Hilly Harmonies</div>
-            <div class="toolkit-card" style="padding: 2.5rem;">Studio Parsons</div>
-        </div>
-    </section>
 
     <!-- ═══ CONTACT ═══ -->
     <section class="container reveal" id="contact" style="padding-bottom: 150px;">
         <div class="glass-card" style="padding: 100px 50px; text-align: center; background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0) 100%);">
             <h2 style="font-size: clamp(3rem, 8vw, 6rem); font-weight: 800; margin-bottom: 2rem;">Let's create<br>something awesome</h2>
             <div class="hero-actions">
-                <a href="mailto:nitinkhatrivfx@gmail.com" class="btn-primary">nitinkhatrivfx@gmail.com</a>
-                <a href="tel:+917505220740" class="btn-secondary">+91 75052 20740</a>
+                <button class="btn-primary magnetic copy-email" data-email="nitinkhatri.vfx@gmail.com">nitinkhatri.vfx@gmail.com</button>
+                <button class="btn-secondary magnetic copy-phone" data-phone="+917505220740">+91 75052 20740</button>
             </div>
             <div style="margin-top: 4rem; display: flex; justify-content: center; gap: 2rem; color: var(--text-dim);">
                 <a href="https://instagram.com/nkcreationtech" target="_blank">Instagram</a>
@@ -314,11 +593,11 @@
         <div class="footer-stats">
             <div class="stat-item">
                 <h3 data-target="200">200+</h3>
-                <p>Personal Projects</p>
+                <p>Commercial Deliverables</p>
             </div>
             <div class="stat-item">
                 <h3 data-target="100">100+</h3>
-                <p>Other client works</p>
+                <p>Production Partners</p>
             </div>
             <div class="stat-item">
                 <h3 data-target="50">50+</h3>
@@ -335,6 +614,25 @@
             <p>VFX · 3D · Design · Noida, India</p>
         </div>
     </footer>
+
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress-container">
+        <div class="scroll-progress-bar" id="scroll-bar"></div>
+    </div>
+
+    <!-- Navigation Dots -->
+    <div class="nav-dots">
+        <a href="#about" class="dot-nav active" title="About"></a>
+        <a href="#impact" class="dot-nav" title="Social"></a>
+        <a href="#partners" class="dot-nav" title="Partners"></a>
+        <a href="#toolkit" class="dot-nav" title="Skills"></a>
+        <a href="#horizontal-projects" class="dot-nav" title="Projects"></a>
+        <a href="#experience" class="dot-nav" title="Experience"></a>
+        <a href="#contact" class="dot-nav" title="Contact"></a>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">Copied to clipboard!</div>
 
     <script src="script.js"></script>
 </body>
