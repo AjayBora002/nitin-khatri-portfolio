@@ -413,45 +413,112 @@ document.addEventListener('DOMContentLoaded', () => {
         navigator.clipboard.writeText(phone).then(() => showToast('Phone number copied!'));
     });
 
-    /* ─── Skill Filtering Logic ─── */
-    const toolkitSection = document.getElementById('toolkit');
+    /* ─── Skill Filtering Logic (Ticker Pills) ─── */
     const filterBtns = document.querySelectorAll('.skill-tab');
-    
-    // Only target cards within the toolkit section to avoid hiding AI tools
-    const skillCards = toolkitSection ? toolkitSection.querySelectorAll('.toolkit-card') : [];
+    const allPills   = document.querySelectorAll('.skill-pill');
+    const detailPanel = document.getElementById('skill-detail-panel');
+    const closeBtn    = document.getElementById('panel-close-btn');
 
+    // Panel element refs
+    const panelEmoji    = document.getElementById('panel-emoji');
+    const panelName     = document.getElementById('panel-tool-name');
+    const panelBadge    = document.getElementById('panel-level-badge');
+    const panelDesc     = document.getElementById('panel-desc');
+    const panelPercent  = document.getElementById('panel-percent-value');
+    const panelFill     = document.getElementById('panel-progress-fill');
+
+    let selectedPill = null;
+
+    /* --- Helper: close detail panel --- */
+    const closePanel = () => {
+        if (detailPanel) detailPanel.classList.remove('open');
+        if (panelFill)   panelFill.style.width = '0';
+        if (selectedPill) {
+            selectedPill.classList.remove('selected');
+            selectedPill = null;
+        }
+    };
+
+    /* --- Helper: open detail panel with pill data --- */
+    const openPanel = (pill) => {
+        const cat     = pill.getAttribute('data-category') || '';
+        const name    = pill.getAttribute('data-name') || '';
+        const percent = pill.getAttribute('data-percent') || '0%';
+        const level   = pill.getAttribute('data-level') || '';
+        const desc    = pill.getAttribute('data-desc') || '';
+        const emoji   = pill.getAttribute('data-emoji') || '🛠️';
+
+        if (panelEmoji)   panelEmoji.textContent   = emoji;
+        if (panelName)    panelName.textContent     = name;
+        if (panelBadge)   panelBadge.textContent    = level;
+        if (panelDesc)    panelDesc.textContent     = desc;
+        if (panelPercent) panelPercent.textContent  = percent;
+
+        // Colour the progress fill by category
+        if (panelFill) {
+            panelFill.className = 'panel-progress-fill ' + cat;
+            // Trigger the width transition on next frame
+            panelFill.style.width = '0';
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => { panelFill.style.width = percent; });
+            });
+        }
+
+        if (detailPanel) detailPanel.classList.add('open');
+    };
+
+    /* --- Tab filter buttons: toggle .dimmed on pills, close panel --- */
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             const filter = btn.getAttribute('data-filter');
-            
-            // 1. Core Initializations
-            try {
-                initMobileNav();
-                initCinematicCursor();
-            } catch(e) {}
-            
+
             filterBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
-            // Filter cards
-            skillCards.forEach(card => {
-                const category = card.getAttribute('data-category');
-                if (filter === 'all' || category === filter) {
-                    card.style.display = 'flex';
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'scale(1)';
-                    }, 10);
+            // Close panel when switching tabs
+            closePanel();
+
+            // Dim pills that don't match the active filter
+            allPills.forEach(pill => {
+                const cat = pill.getAttribute('data-category');
+                if (filter === 'all' || cat === filter) {
+                    pill.classList.remove('dimmed');
                 } else {
-                    card.style.opacity = '0';
-                    card.style.transform = 'scale(0.8)';
-                    setTimeout(() => {
-                        card.style.display = 'none';
-                    }, 400);
+                    pill.classList.add('dimmed');
                 }
             });
         });
     });
+
+    /* --- Pill click: toggle detail panel --- */
+    allPills.forEach(pill => {
+        pill.addEventListener('click', () => {
+            if (pill.classList.contains('dimmed')) return;
+
+            if (selectedPill === pill) {
+                // Clicking the same pill closes the panel
+                closePanel();
+                return;
+            }
+
+            // Deselect previous
+            if (selectedPill) selectedPill.classList.remove('selected');
+
+            selectedPill = pill;
+            pill.classList.add('selected');
+            openPanel(pill);
+
+            // Smooth-scroll the panel into view on mobile
+            if (detailPanel && window.innerWidth < 768) {
+                setTimeout(() => {
+                    detailPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 80);
+            }
+        });
+    });
+
+    /* --- Close button --- */
+    if (closeBtn) closeBtn.addEventListener('click', closePanel);
 
     /* ─── Image Lazy Loading Blur-Up ─── */
     const images = document.querySelectorAll('img');
@@ -464,81 +531,94 @@ document.addEventListener('DOMContentLoaded', () => {
         if (img.complete) img.classList.remove('loading');
     });
 
-    /* ── Custom Cinematic Cursor & Sparks ── */
+    /* ── Sleek Minimal Dot + Ring Cursor Tracker ── */
     const cursor = document.getElementById('cursor');
     const cursorBlur = document.getElementById('cursor-blur');
-    let cursorX = 0, cursorY = 0;
-    let blurX = 0, blurY = 0;
-    let targetX = 0, targetY = 0;
-    let lastX = 0, lastY = 0;
+    let blurX = window.innerWidth / 2, blurY = window.innerHeight / 2;
+    let blurTargetX = blurX, blurTargetY = blurY;
 
     document.addEventListener('mousemove', (e) => {
-        targetX = e.clientX;
-        targetY = e.clientY;
-        
-        // Velocity for Sparks
-        const dx = Math.abs(targetX - lastX);
-        const dy = Math.abs(targetY - lastY);
-        if (dx + dy > 25) createSpark(targetX, targetY);
-        
-        lastX = targetX;
-        lastY = targetY;
-
+        if (cursor) {
+            cursor.style.left = `${e.clientX}px`;
+            cursor.style.top = `${e.clientY}px`;
+        }
+        blurTargetX = e.clientX;
+        blurTargetY = e.clientY;
         document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
         document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
     });
 
-    const createSpark = (x, y) => {
-        const count = 5;
-        for (let i = 0; i < count; i++) {
-            const spark = document.createElement('div');
-            spark.className = 'cursor-spark';
-            spark.style.left = `${x}px`;
-            spark.style.top = `${y}px`;
-            
-            const size = Math.random() * 3 + 1;
-            spark.style.width = `${size}px`;
-            spark.style.height = `${size}px`;
-            
-            document.body.appendChild(spark);
-            
-            const angle = Math.random() * Math.PI * 2;
-            const dist = Math.random() * 50 + 20;
-            const tx = Math.cos(angle) * dist;
-            const ty = Math.sin(angle) * dist;
-            
-            setTimeout(() => {
-                spark.style.transform = `translate(${tx}px, ${ty}px) scale(0)`;
-                spark.style.opacity = '0';
-            }, 10);
-            
-            setTimeout(() => spark.remove(), 400);
-        }
-    };
-
-    const animateCursor = () => {
-        // Elastic/Lazy follow logic
-        cursorX += (targetX - cursorX) * 0.15;
-        cursorY += (targetY - cursorY) * 0.15;
-        
-        blurX += (targetX - blurX) * 0.08;
-        blurY += (targetY - blurY) * 0.08;
-        
-        if (cursor) {
-            cursor.style.transform = `translate(${cursorX - 6}px, ${cursorY - 6}px)`;
-        }
+    const animateBlur = () => {
+        blurX += (blurTargetX - blurX) * 0.12;
+        blurY += (blurTargetY - blurY) * 0.12;
         if (cursorBlur) {
-            cursorBlur.style.transform = `translate(${blurX - 30}px, ${blurY - 30}px)`;
+            cursorBlur.style.left = `${blurX}px`;
+            cursorBlur.style.top = `${blurY}px`;
         }
-        requestAnimationFrame(animateCursor);
+        requestAnimationFrame(animateBlur);
     };
-    animateCursor();
+    animateBlur();
+
+
 
     const interactiveEls = document.querySelectorAll('a, button, .toolkit-card-3d, .project-reel-item, .magnetic');
     interactiveEls.forEach(el => {
         el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
         el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
     });
+
+    /* ─── Brand Carousel ─── */
+    const brandTrack    = document.getElementById('brandTrack');
+    const brandPrev     = document.getElementById('brandPrev');
+    const brandNext     = document.getElementById('brandNext');
+    const brandDots     = document.querySelectorAll('.brand-dot');
+    const TOTAL_SLIDES  = 7; // original (non-clone) count
+    let brandIndex      = 0;
+    let brandAutoTimer  = null;
+    let brandPaused     = false;
+
+    const getSlideWidth = () => {
+        const slide = brandTrack?.querySelector('.brand-slide');
+        if (!slide) return 236;
+        return slide.offsetWidth + 24; // card + gap
+    };
+
+    const goToSlide = (idx) => {
+        // Clamp with wrap-around
+        brandIndex = ((idx % TOTAL_SLIDES) + TOTAL_SLIDES) % TOTAL_SLIDES;
+
+        // Stop CSS animation & drive manually via transform
+        brandTrack.style.animationPlayState = 'paused';
+        brandTrack.style.animation = 'none';
+        brandTrack.style.transition = 'transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)';
+        brandTrack.style.transform = `translateX(-${brandIndex * getSlideWidth()}px)`;
+
+        // Dots
+        brandDots.forEach((d, i) => d.classList.toggle('active', i === brandIndex));
+    };
+
+    const startAuto = () => {
+        brandAutoTimer = setInterval(() => {
+            if (!brandPaused) goToSlide(brandIndex + 1);
+        }, 3000);
+    };
+
+    if (brandTrack && brandPrev && brandNext) {
+        brandPrev.addEventListener('click', () => { goToSlide(brandIndex - 1); });
+        brandNext.addEventListener('click', () => { goToSlide(brandIndex + 1); });
+
+        brandDots.forEach((dot, i) => {
+            dot.addEventListener('click', () => goToSlide(i));
+        });
+
+        // Pause on hover
+        brandTrack.closest('.brand-carousel-wrapper')?.addEventListener('mouseenter', () => { brandPaused = true; });
+        brandTrack.closest('.brand-carousel-wrapper')?.addEventListener('mouseleave', () => { brandPaused = false; });
+
+        startAuto();
+    }
+
+
 
     /* ── Parallax Depth (About Section) ── */
     const meetImage = document.querySelector('.meet-image');

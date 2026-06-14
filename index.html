@@ -39,21 +39,23 @@
 
     <!-- ═══ NAVBAR ═══ -->
     <nav class="nav">
-        <div class="nav-logo magnetic">NITIN KHATRI</div>
+        <div class="nav-logo magnetic">NK Creation</div>
         <div class="nav-links">
             <a href="#about">About</a>
-            <a href="#impact">Social Proof</a>
-            <a href="#partners">Partners</a>
-            <a href="#toolkit">Skills</a>
             <a href="#projects">Work</a>
             <a href="#experience">Experience</a>
+           
+            <a href="#partners">Partners</a>
+            <a href="#toolkit">Skills</a>
             <a href="#contact">Contact</a>
         </div>
         <div class="nav-toggle" id="nav-toggle">
             <span></span>
             <span></span>
         </div>
-        <a href="Resume_nitin.pdf" download class="btn-nav-cta">Resume ↓</a>
+        <div class="nav-cta-container">
+            <a href="Resume_nitin.pdf" download class="btn-nav-cta">Resume ↓</a>
+        </div>
     </nav>
 
     <!-- Mobile Menu Overlay -->
@@ -126,84 +128,185 @@
         </div>
     </section>
 
-    <!-- ═══ SOCIAL IMPACT (INSTAGRAM) ═══ -->
-    <section class="container reveal" id="impact" style="padding-bottom: 150px;">
-        <div class="insight-container">
-            <div style="flex: 1;">
-                <span class="section-tag">Social Impact</span>
-                <h2 style="font-size: 3.5rem; font-weight: 800; margin-bottom: 1rem; line-height: 1.1;">2M+ Organic<br>Global Impressions</h2>
-                <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.6; margin-bottom: 2rem;">
-                    Leveraging narrative-driven content strategy and high-fidelity VFX to drive massive organic growth. My creative productions have secured over 2.5 million views across social platforms, building a digital legacy of premium visual engagement.
-                </p>
-                <div class="footer-stats" style="border:none; padding:0; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
-                    <div class="stat-item vfx-stat">
-                        <h3 data-target="1.85">1.8M</h3>
-                        <p>Accounts Reached</p>
-                        <div class="stat-bar"><div class="stat-fill" style="--percent: 85%;"></div></div>
-                    </div>
-                    <div class="stat-item design-stat">
-                        <h3 data-target="291">291K</h3>
-                        <p>Likes</p>
-                        <div class="stat-bar"><div class="stat-fill" style="--percent: 75%;"></div></div>
-                    </div>
-                    <div class="stat-item video-stat">
-                        <h3 data-target="89">89K</h3>
-                        <p>Shares</p>
-                        <div class="stat-bar"><div class="stat-fill" style="--percent: 65%;"></div></div>
-                    </div>
-                    <div class="stat-item social-stat">
-                        <h3 data-target="17">17K</h3>
-                        <p>Saves</p>
-                        <div class="stat-bar"><div class="stat-fill" style="--percent: 90%;"></div></div>
+
+       <!-- ═══ SELECTED WORK (BENTO GRID) ═══ -->
+    <section id="projects" class="container reveal" style="padding: 100px 0;">
+        <div class="showcase-layout">
+            <div class="showcase-header">
+                <span class="section-tag">Showcase</span>
+                <h2 class="section-title">Projects</h2>
+            </div>
+            
+            <div class="projects-bento-grid">
+                <!-- Project 1 (FEAUTURED) -->
+                <div class="project-card-bento featured glass-card reveal">
+                    <div class="project-thumb" style="background-image: url('https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&q=80&w=800');"></div>
+                    <div class="project-info">
+                        <span class="project-tag">VFX</span>
+                        <h3 class="project-title">The BHAIRON Chronicles</h3>
+                        <p class="project-desc">Full VFX Supervision and high-end CGI integration for a cinematic action sequence. Focused on environment optimization and lighting.</p>
+                        <a href="https://youtu.be/E1L0cOf0y5s?si=hmc3Qa4ziqSzx2Z5" target="_blank" class="view-details-link">Watch Video →</a>
                     </div>
                 </div>
-            </div>
-            <div style="flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-                <div class="glass-card" style="aspect-ratio: 9/16; border-radius: 20px; background: #050505 url('https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=400') center/cover;"></div>
-                <div class="glass-card" style="aspect-ratio: 9/16; border-radius: 20px; background: #050505 url('https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?auto=format&fit=crop&q=80&w=400') center/cover;"></div>
+                <!-- Project 2 -->
+                <div class="project-card-bento glass-card reveal">
+                    <div class="project-thumb" style="background-image: url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&q=80&w=800');"></div>
+                    <div class="project-info">
+                        <span class="project-tag">3D Design</span>
+                        <h3 class="project-title">3D-Commercial Ads</h3>
+                        <p class="project-desc">Hyper-realistic 3D product motion design for a global tech launch campaign. Created within a high-velocity production pipeline.</p>
+                        <a href="https://youtu.be/2ROkJO15iT0?si=K983cKJ9s8ElAzyK" target="_blank" class="view-details-link">Watch Video →</a>
+                    </div>
+                </div>
+                <!-- Project 3 -->
+                <div class="project-card-bento glass-card reveal">
+                    <div class="project-thumb" style="background-image: url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=800');"></div>
+                    <div class="project-info">
+                        <span class="project-tag">Animation</span>
+                        <h3 class="project-title">Dhun Pahadi Production</h3>
+                        <p class="project-desc">Cinematic mixed media animation and 3D environment layout for a cultural documentary series.</p>
+                        <a href="https://youtu.be/uDJRxxhiyrA?si=t2o12553MtO4yxHJ" target="_blank" class="view-details-link">Watch Video →</a>
+                    </div>
+                </div>
+                
+                </div>
             </div>
         </div>
     </section>
+   <!-- ═══ EXPERIENCE ═══ -->
+    <section class="container reveal" id="experience" style="padding-bottom: 120px;">
+        <div class="section-header">
+            <span class="section-tag">Journey</span>
+            <h2 class="section-title">Experience</h2>
+        </div>
+        <div class="services-grid" style="grid-template-columns: 1fr;">
+            <div class="glass-card reveal" style="padding: 2.5rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 2rem;">
+                <div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Senior Photo & Video Editor</h3>
+                    <p style="color: var(--text-dim); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em;">Memories Yard Studio • 2024–2025</p>
+                </div>
+                <p style="max-width: 500px; color: var(--text-muted); font-size: 1rem; line-height: 1.6;">Spearheaded high-end cinematic content production, achieving a 90% client retention rate through innovative visual solutions and standard-setting quality control.</p>
+            </div>
+            <div class="glass-card reveal" style="padding: 2.5rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 2rem;">
+                <div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">VFX Director & Supervisor</h3>
+                    <p style="color: var(--text-dim); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em;">Hilly Harmonies Production • Project Based</p>
+                </div>
+                <div>
+                    <p style="max-width: 500px; color: var(--text-muted); font-size: 1rem; line-height: 1.6; margin-bottom: 0.8rem;">Directed the full VFX pipeline for the "BHAIRON" production—from initial pre-visualization to final high-fidelity compositing.</p>
+                    <a href="https://youtu.be/E1L0cOf0y5s?si=hmc3Qa4ziqSzx2Z5" target="_blank" style="color: var(--gold); text-decoration: none; font-size: 0.9rem; font-weight: 600; display: inline-block;">Watch Project Video →</a>
+                </div>
+            </div>
+            <div class="glass-card reveal" style="padding: 2.5rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 2rem;">
+                <div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">3D Artist & Graphic Designer</h3>
+                    <p style="color: var(--text-dim); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em;">UltraPro Link Pvt Ltd • Previous</p>
+                </div>
+                <p style="max-width: 500px; color: var(--text-muted); font-size: 1rem; line-height: 1.6;">Architected 50+ high-fidelity infographics and 3D marketing assets, significantly elevating the brand's digital presence in the tech sector.</p>
+            </div>
+            <div class="glass-card reveal" style="padding: 2.5rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 2rem;">
+                <div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Cinematographer & Social Manager</h3>
+                    <p style="color: var(--text-dim); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em;">Studio Parsons • Previous</p>
+                </div>
+                <p style="max-width: 500px; color: var(--text-muted); font-size: 1rem; line-height: 1.6;">Oversaw full-cycle music video production and strategic social media management for multiple high-reaching independent releases.</p>
+            </div>
+        </div>
+    </section>
+
+
 
     <!-- ═══ BRANDS & PRODUCTION HOUSES ═══ -->
     <section class="section" id="partners" style="padding: 100px 0;">
         <div class="container">
             <div class="section-header" style="text-align: center; margin-bottom: 4rem;">
                 <span class="section-tag">Partners</span>
-                <h2 class="section-title">Brands & Production Houses</h2>
+                <h2 class="section-title">Brands I've Worked with</h2>
+                
                 <p style="color: var(--text-muted); max-width: 600px; margin: 1rem auto;">I've had the privilege of collaborating with these industry leaders and creative studios.</p>
             </div>
-            
-            <div class="toolkit-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
-                <div class="toolkit-card glass-card branding-card" style="opacity: 1; transform: none; padding: 2.5rem 1.5rem;">
-                    <img src="assets/logos/zigly.png" alt="Zigly" class="brand-logo">
-                    <div class="brand-name">Zigly</div>
-                    <div style="font-size: 0.75rem; color: var(--text-dim);">For Happy Pets</div>
+        </div>
+
+        <!-- Carousel — full bleed, no container clipping -->
+        <div class="brand-carousel-wrapper">
+            <!-- Prev / Next Buttons -->
+            <button class="carousel-btn carousel-btn--prev" id="brandPrev" aria-label="Previous">&#8592;</button>
+            <button class="carousel-btn carousel-btn--next" id="brandNext" aria-label="Next">&#8594;</button>
+
+            <div class="brand-carousel-track-outer">
+                <div class="brand-carousel-track" id="brandTrack">
+                    <!-- Original set -->
+                    <div class="toolkit-card glass-card branding-card brand-slide">
+                        <img src="assets/logos/zigly.png" alt="Zigly" class="brand-logo">
+                        <div class="brand-name">Zigly</div>
+                        <div style="font-size:0.75rem;color:var(--text-dim);">For Happy Pets</div>
+                    </div>
+                    <div class="toolkit-card glass-card branding-card brand-slide">
+                        <img src="assets/logos/esthemax.png" alt="Esthemax" class="brand-logo">
+                        <div class="brand-name">Esthemax Professional</div>
+                    </div>
+                    <div class="toolkit-card glass-card branding-card brand-slide">
+                        <img src="assets/logos/memories_yard.png" alt="Memories Yard" class="brand-logo">
+                        <div class="brand-name">Memories Yard Studio</div>
+                    </div>
+                    <div class="toolkit-card glass-card branding-card brand-slide">
+                        <img src="assets/logos/ultraprolink.png" alt="Ultraprolink" class="brand-logo">
+                        <div class="brand-name">Ultraprolink</div>
+                    </div>
+                    <div class="toolkit-card glass-card branding-card brand-slide">
+                        <img src="assets/logos/rhino.png" alt="Production House" class="brand-logo">
+                        <div class="brand-name">Production Partner</div>
+                    </div>
+                    <div class="toolkit-card glass-card branding-card brand-slide">
+                        <img src="assets/logos/dhun_pahadi.png" alt="Dhun Pahadi" class="brand-logo">
+                        <div class="brand-name">Dhun Pahadi Production</div>
+                    </div>
+                    <div class="toolkit-card glass-card branding-card brand-slide">
+                        <img src="assets/logos/hilly_harmonies.png" alt="Hilly Harmonies" class="brand-logo">
+                        <div class="brand-name">Hilly Harmonies</div>
+                    </div>
+                    <!-- Cloned set for seamless infinite loop -->
+                    <div class="toolkit-card glass-card branding-card brand-slide" aria-hidden="true">
+                        <img src="assets/logos/zigly.png" alt="Zigly" class="brand-logo">
+                        <div class="brand-name">Zigly</div>
+                        <div style="font-size:0.75rem;color:var(--text-dim);">For Happy Pets</div>
+                    </div>
+                    <div class="toolkit-card glass-card branding-card brand-slide" aria-hidden="true">
+                        <img src="assets/logos/esthemax.png" alt="Esthemax" class="brand-logo">
+                        <div class="brand-name">Esthemax Professional</div>
+                    </div>
+                    <div class="toolkit-card glass-card branding-card brand-slide" aria-hidden="true">
+                        <img src="assets/logos/memories_yard.png" alt="Memories Yard" class="brand-logo">
+                        <div class="brand-name">Memories Yard Studio</div>
+                    </div>
+                    <div class="toolkit-card glass-card branding-card brand-slide" aria-hidden="true">
+                        <img src="assets/logos/ultraprolink.png" alt="Ultraprolink" class="brand-logo">
+                        <div class="brand-name">Ultraprolink</div>
+                    </div>
+                    <div class="toolkit-card glass-card branding-card brand-slide" aria-hidden="true">
+                        <img src="assets/logos/rhino.png" alt="Production House" class="brand-logo">
+                        <div class="brand-name">Production Partner</div>
+                    </div>
+                    <div class="toolkit-card glass-card branding-card brand-slide" aria-hidden="true">
+                        <img src="assets/logos/dhun_pahadi.png" alt="Dhun Pahadi" class="brand-logo">
+                        <div class="brand-name">Dhun Pahadi Production</div>
+                    </div>
+                    <div class="toolkit-card glass-card branding-card brand-slide" aria-hidden="true">
+                        <img src="assets/logos/hilly_harmonies.png" alt="Hilly Harmonies" class="brand-logo">
+                        <div class="brand-name">Hilly Harmonies</div>
+                    </div>
                 </div>
-                <div class="toolkit-card glass-card branding-card" style="opacity: 1; transform: none; padding: 2.5rem 1.5rem;">
-                    <img src="assets/logos/esthemax.png" alt="Esthemax" class="brand-logo">
-                    <div class="brand-name">Esthemax Professional</div>
-                </div>
-                <div class="toolkit-card glass-card branding-card" style="opacity: 1; transform: none; padding: 2.5rem 1.5rem;">
-                    <img src="assets/logos/memories_yard.png" alt="Memories Yard" class="brand-logo">
-                    <div class="brand-name">Memories Yard Studio</div>
-                </div>
-                <div class="toolkit-card glass-card branding-card" style="opacity: 1; transform: none; padding: 2.5rem 1.5rem;">
-                    <img src="assets/logos/ultraprolink.png" alt="Ultraprolink" class="brand-logo">
-                    <div class="brand-name">Ultraprolink</div>
-                </div>
-                <div class="toolkit-card glass-card branding-card" style="opacity: 1; transform: none; padding: 2.5rem 1.5rem;">
-                    <img src="assets/logos/rhino.png" alt="Production House" class="brand-logo">
-                    <div class="brand-name">Production Partner</div>
-                </div>
-                <div class="toolkit-card glass-card branding-card" style="opacity: 1; transform: none; padding: 2.5rem 1.5rem;">
-                    <img src="assets/logos/dhun_pahadi.png" alt="Dhun Pahad" class="brand-logo">
-                    <div class="brand-name">Dhun Pahadi Production</div>
-                </div>
-                <div class="toolkit-card glass-card branding-card" style="opacity: 1; transform: none; padding: 2.5rem 1.5rem;">
-                    <img src="assets/logos/hilly_harmonies.png" alt="Hilly Harmonies" class="brand-logo">
-                    <div class="brand-name">Hilly Harmonies</div>
-                </div>
+            </div>
+
+            <!-- Dot indicators -->
+            <div class="brand-dots" id="brandDots">
+                <span class="brand-dot active"></span>
+                <span class="brand-dot"></span>
+                <span class="brand-dot"></span>
+                <span class="brand-dot"></span>
+                <span class="brand-dot"></span>
+                <span class="brand-dot"></span>
+                <span class="brand-dot"></span>
             </div>
         </div>
     </section>
@@ -222,201 +325,184 @@
                 <button class="skill-tab" data-filter="design">Design</button>
             </div>
         </div>
-            <div class="toolkit-card-3d" data-category="vfx">
-                <div class="card-inner">
-                    <div class="card-front glass-card">
-                        <div class="tool-icon">🎞️</div>
-                        <span class="tool-name">After Effects</span>
-                        <div class="skill-progress-bar">
-                            <div class="skill-progress" style="--percent: 95%;"></div>
-                        </div>
-                        <span class="tool-level">Expert</span>
+
+        <!-- Part A - Scrolling Ticker Rows -->
+        <div class="skills-ticker-container" id="skills-ticker-container">
+            <!-- Row 1 -->
+            <div class="skills-ticker-row">
+                <div class="skills-ticker-inner">
+                    <!-- Original set -->
+                    <div class="skill-pill" data-category="vfx" data-name="After Effects" data-percent="95%" data-level="Expert" data-desc="Master of compositing, motion graphics, and high-end cinematic color grading." data-emoji="🎞️">
+                        <span class="skill-emoji">🎞️</span>
+                        <span class="skill-name">After Effects</span>
+                        <span class="skill-level-badge vfx">Expert</span>
                     </div>
-                    <div class="card-back glass-card">
-                        <p>Master of compositing, motion graphics, and high-end cinematic color grading.</p>
+                    <div class="skill-pill" data-category="design" data-name="Photoshop" data-percent="90%" data-level="Expert" data-desc="Specializing in 100+ creative compositions, poster designs, and professional texturing for high-end digital assets." data-emoji="🎨">
+                        <span class="skill-emoji">🎨</span>
+                        <span class="skill-name">Photoshop</span>
+                        <span class="skill-level-badge design">Expert</span>
                     </div>
-                </div>
-            </div>
-            <div class="toolkit-card-3d" data-category="design">
-                <div class="card-inner">
-                    <div class="card-front glass-card">
-                        <div class="tool-icon">🎨</div>
-                        <span class="tool-name">Photoshop</span>
-                        <div class="skill-progress-bar">
-                            <div class="skill-progress" style="--percent: 90%;"></div>
-                        </div>
-                        <span class="tool-level">Expert</span>
+                    <div class="skill-pill" data-category="video" data-name="Premiere Pro" data-percent="88%" data-level="High" data-desc="Dynamic video editing with a focus on cinematic storytelling, pacing, and multi-track sound design." data-emoji="🎬">
+                        <span class="skill-emoji">🎬</span>
+                        <span class="skill-name">Premiere Pro</span>
+                        <span class="skill-level-badge video">High</span>
                     </div>
-                    <div class="card-back glass-card">
-                        <p>Specializing in 100+ creative compositions, poster designs, and professional texturing for high-end digital assets.</p>
+                    <div class="skill-pill" data-category="3d" data-name="Blender 3D" data-percent="85%" data-level="Expert" data-desc="Advanced 3D modeling, lighting, and photorealistic rendering using Cycles and Eevee engines." data-emoji="🔺">
+                        <span class="skill-emoji">🔺</span>
+                        <span class="skill-name">Blender 3D</span>
+                        <span class="skill-level-badge 3d">Expert</span>
                     </div>
-                </div>
-            </div>
-            <div class="toolkit-card-3d" data-category="video">
-                <div class="card-inner">
-                    <div class="card-front glass-card">
-                        <div class="tool-icon">🎬</div>
-                        <span class="tool-name">Premiere Pro</span>
-                        <div class="skill-progress-bar">
-                            <div class="skill-progress" style="--percent: 88%;"></div>
-                        </div>
-                        <span class="tool-level">High</span>
+                    <!-- Clone set -->
+                    <div class="skill-pill" data-category="vfx" data-name="After Effects" data-percent="95%" data-level="Expert" data-desc="Master of compositing, motion graphics, and high-end cinematic color grading." data-emoji="🎞️">
+                        <span class="skill-emoji">🎞️</span>
+                        <span class="skill-name">After Effects</span>
+                        <span class="skill-level-badge vfx">Expert</span>
                     </div>
-                    <div class="card-back glass-card">
-                        <p>Dynamic video editing with a focus on cinematic storytelling, pacing, and multi-track sound design.</p>
+                    <div class="skill-pill" data-category="design" data-name="Photoshop" data-percent="90%" data-level="Expert" data-desc="Specializing in 100+ creative compositions, poster designs, and professional texturing for high-end digital assets." data-emoji="🎨">
+                        <span class="skill-emoji">🎨</span>
+                        <span class="skill-name">Photoshop</span>
+                        <span class="skill-level-badge design">Expert</span>
                     </div>
-                </div>
-            </div>
-            <div class="toolkit-card-3d" data-category="3d">
-                <div class="card-inner">
-                    <div class="card-front glass-card">
-                        <div class="tool-icon">🔺</div>
-                        <span class="tool-name">Blender 3D</span>
-                        <div class="skill-progress-bar">
-                            <div class="skill-progress" style="--percent: 85%;"></div>
-                        </div>
-                        <span class="tool-level">Expert</span>
+                    <div class="skill-pill" data-category="video" data-name="Premiere Pro" data-percent="88%" data-level="High" data-desc="Dynamic video editing with a focus on cinematic storytelling, pacing, and multi-track sound design." data-emoji="🎬">
+                        <span class="skill-emoji">🎬</span>
+                        <span class="skill-name">Premiere Pro</span>
+                        <span class="skill-level-badge video">High</span>
                     </div>
-                    <div class="card-back glass-card">
-                        <p>Advanced 3D modeling, lighting, and photorealistic rendering using Cycles and Eevee engines.</p>
+                    <div class="skill-pill" data-category="3d" data-name="Blender 3D" data-percent="85%" data-level="Expert" data-desc="Advanced 3D modeling, lighting, and photorealistic rendering using Cycles and Eevee engines." data-emoji="🔺">
+                        <span class="skill-emoji">🔺</span>
+                        <span class="skill-name">Blender 3D</span>
+                        <span class="skill-level-badge 3d">Expert</span>
                     </div>
                 </div>
             </div>
-            <div class="toolkit-card-3d" data-category="design">
-                <div class="card-inner">
-                    <div class="card-front glass-card">
-                        <div class="tool-icon">🌈</div>
-                        <span class="tool-name">Lightroom CC</span>
-                        <div class="skill-progress-bar">
-                            <div class="skill-progress" style="--percent: 80%;"></div>
-                        </div>
-                        <span class="tool-level">High</span>
+
+            <!-- Row 2 -->
+            <div class="skills-ticker-row">
+                <div class="skills-ticker-inner">
+                    <!-- Original set -->
+                    <div class="skill-pill" data-category="design" data-name="Lightroom CC" data-percent="80%" data-level="High" data-desc="Mastering color theory and professional photo retouching for high-impact visual branding." data-emoji="🌈">
+                        <span class="skill-emoji">🌈</span>
+                        <span class="skill-name">Lightroom CC</span>
+                        <span class="skill-level-badge design">High</span>
                     </div>
-                    <div class="card-back glass-card">
-                        <p>Mastering color theory and professional photo retouching for high-impact visual branding.</p>
+                    <div class="skill-pill" data-category="vfx" data-name="Embergen" data-percent="75%" data-level="Intermediate" data-desc="Real-time volumetric simulation for high-end fire, smoke, and magical VFX." data-emoji="🔥">
+                        <span class="skill-emoji">🔥</span>
+                        <span class="skill-name">Embergen</span>
+                        <span class="skill-level-badge vfx">Intermediate</span>
                     </div>
-                </div>
-            </div>
-            <div class="toolkit-card-3d" data-category="vfx">
-                <div class="card-inner">
-                    <div class="card-front glass-card">
-                        <div class="tool-icon">🔥</div>
-                        <span class="tool-name">Embergen</span>
-                        <div class="skill-progress-bar">
-                            <div class="skill-progress" style="--percent: 75%;"></div>
-                        </div>
-                        <span class="tool-level">Intermediate</span>
+                    <div class="skill-pill" data-category="3d" data-name="Substance Painter" data-percent="75%" data-level="Intermediate" data-desc="Industry-standard PBR texturing and procedural material creation for game-ready 3D assets." data-emoji="🖌️">
+                        <span class="skill-emoji">🖌️</span>
+                        <span class="skill-name">Substance Painter</span>
+                        <span class="skill-level-badge 3d">Intermediate</span>
                     </div>
-                    <div class="card-back glass-card">
-                        <p>Real-time volumetric simulation for high-end fire, smoke, and magical VFX.</p>
+                    <div class="skill-pill" data-category="3d" data-name="Marvelous Designer" data-percent="70%" data-level="Intermediate" data-desc="Creating realistic high-fidelity digital fabric and character clothing." data-emoji="🧥">
+                        <span class="skill-emoji">🧥</span>
+                        <span class="skill-name">Marvelous Designer</span>
+                        <span class="skill-level-badge 3d">Intermediate</span>
                     </div>
-                </div>
-            </div>
-            <div class="toolkit-card-3d" data-category="3d">
-                <div class="card-inner">
-                    <div class="card-front glass-card">
-                        <div class="tool-icon">🖌️</div>
-                        <span class="tool-name">Substance Painter</span>
-                        <div class="skill-progress-bar">
-                            <div class="skill-progress" style="--percent: 75%;"></div>
-                        </div>
-                        <span class="tool-level">Intermediate</span>
+                    <!-- Clone set -->
+                    <div class="skill-pill" data-category="design" data-name="Lightroom CC" data-percent="80%" data-level="High" data-desc="Mastering color theory and professional photo retouching for high-impact visual branding." data-emoji="🌈">
+                        <span class="skill-emoji">🌈</span>
+                        <span class="skill-name">Lightroom CC</span>
+                        <span class="skill-level-badge design">High</span>
                     </div>
-                    <div class="card-back glass-card">
-                        <p>Industry-standard PBR texturing and procedural material creation for game-ready 3D assets.</p>
+                    <div class="skill-pill" data-category="vfx" data-name="Embergen" data-percent="75%" data-level="Intermediate" data-desc="Real-time volumetric simulation for high-end fire, smoke, and magical VFX." data-emoji="🔥">
+                        <span class="skill-emoji">🔥</span>
+                        <span class="skill-name">Embergen</span>
+                        <span class="skill-level-badge vfx">Intermediate</span>
                     </div>
-                </div>
-            </div>
-            <div class="toolkit-card-3d" data-category="3d">
-                <div class="card-inner">
-                    <div class="card-front glass-card">
-                        <div class="tool-icon">🧥</div>
-                        <span class="tool-name">Marvelous Designer</span>
-                        <div class="skill-progress-bar">
-                            <div class="skill-progress" style="--percent: 70%;"></div>
-                        </div>
-                        <span class="tool-level">Intermediate</span>
+                    <div class="skill-pill" data-category="3d" data-name="Substance Painter" data-percent="75%" data-level="Intermediate" data-desc="Industry-standard PBR texturing and procedural material creation for game-ready 3D assets." data-emoji="🖌️">
+                        <span class="skill-emoji">🖌️</span>
+                        <span class="skill-name">Substance Painter</span>
+                        <span class="skill-level-badge 3d">Intermediate</span>
                     </div>
-                    <div class="card-back glass-card">
-                        <p>Creating realistic high-fidelity digital fabric and character clothing.</p>
+                    <div class="skill-pill" data-category="3d" data-name="Marvelous Designer" data-percent="70%" data-level="Intermediate" data-desc="Creating realistic high-fidelity digital fabric and character clothing." data-emoji="🧥">
+                        <span class="skill-emoji">🧥</span>
+                        <span class="skill-name">Marvelous Designer</span>
+                        <span class="skill-level-badge 3d">Intermediate</span>
                     </div>
                 </div>
             </div>
-            <div class="toolkit-card-3d" data-category="3d">
-                <div class="card-inner">
-                    <div class="card-front glass-card">
-                        <div class="tool-icon">🏰</div>
-                        <span class="tool-name">Maya</span>
-                        <div class="skill-progress-bar">
-                            <div class="skill-progress" style="--percent: 65%;"></div>
-                        </div>
-                        <span class="tool-level">Intermediate</span>
+
+            <!-- Row 3 -->
+            <div class="skills-ticker-row">
+                <div class="skills-ticker-inner">
+                    <!-- Original set -->
+                    <div class="skill-pill" data-category="3d" data-name="Maya" data-percent="65%" data-level="Intermediate" data-desc="Industry-standard 3D animation, rigging, and complex scene layout." data-emoji="🏰">
+                        <span class="skill-emoji">🏰</span>
+                        <span class="skill-name">Maya</span>
+                        <span class="skill-level-badge 3d">Intermediate</span>
                     </div>
-                    <div class="card-back glass-card">
-                        <p>Industry-standard 3D animation, rigging, and complex scene layout.</p>
+                    <div class="skill-pill" data-category="3d" data-name="Unreal Engine" data-percent="60%" data-level="Intermediate" data-desc="Driving the future of real-time virtual production and cinematic environments." data-emoji="🌐">
+                        <span class="skill-emoji">🌐</span>
+                        <span class="skill-name">Unreal Engine</span>
+                        <span class="skill-level-badge 3d">Intermediate</span>
                     </div>
-                </div>
-            </div>
-            <div class="toolkit-card-3d" data-category="3d">
-                <div class="card-inner">
-                    <div class="card-front glass-card">
-                        <div class="tool-icon">🌐</div>
-                        <span class="tool-name">Unreal Engine</span>
-                        <div class="skill-progress-bar">
-                            <div class="skill-progress" style="--percent: 60%;"></div>
-                        </div>
-                        <span class="tool-level">Intermediate</span>
+                    <div class="skill-pill" data-category="video" data-name="Capcut" data-percent="90%" data-level="Expert" data-desc="Fast, effective social media editing with optimized mobile pacing." data-emoji="✂️">
+                        <span class="skill-emoji">✂️</span>
+                        <span class="skill-name">Capcut</span>
+                        <span class="skill-level-badge video">Expert</span>
                     </div>
-                    <div class="card-back glass-card">
-                        <p>Driving the future of real-time virtual production and cinematic environments.</p>
+                    <div class="skill-pill" data-category="design" data-name="Canva PRO" data-percent="95%" data-level="Expert" data-desc="Strategic social media design and high-velocity asset creation." data-emoji="✨">
+                        <span class="skill-emoji">✨</span>
+                        <span class="skill-name">Canva PRO</span>
+                        <span class="skill-level-badge design">Expert</span>
                     </div>
-                </div>
-            </div>
-            <div class="toolkit-card-3d" data-category="video">
-                <div class="card-inner">
-                    <div class="card-front glass-card">
-                        <div class="tool-icon">✂️</div>
-                        <span class="tool-name">Capcut</span>
-                        <div class="skill-progress-bar">
-                            <div class="skill-progress" style="--percent: 90%;"></div>
-                        </div>
-                        <span class="tool-level">Expert</span>
+                    <div class="skill-pill" data-category="social" data-name="Meta Business Suite" data-percent="85%" data-level="Expert" data-desc="Data-driven strategy for social growth and audience engagement." data-emoji="📊">
+                        <span class="skill-emoji">📊</span>
+                        <span class="skill-name">Meta Business Suite</span>
+                        <span class="skill-level-badge social">Expert</span>
                     </div>
-                    <div class="card-back glass-card">
-                        <p>Fast, effective social media editing with optimized mobile pacing.</p>
+                    <!-- Clone set -->
+                    <div class="skill-pill" data-category="3d" data-name="Maya" data-percent="65%" data-level="Intermediate" data-desc="Industry-standard 3D animation, rigging, and complex scene layout." data-emoji="🏰">
+                        <span class="skill-emoji">🏰</span>
+                        <span class="skill-name">Maya</span>
+                        <span class="skill-level-badge 3d">Intermediate</span>
                     </div>
-                </div>
-            </div>
-            <div class="toolkit-card-3d" data-category="design">
-                <div class="card-inner">
-                    <div class="card-front glass-card">
-                        <div class="tool-icon">✨</div>
-                        <span class="tool-name">Canva PRO</span>
-                        <div class="skill-progress-bar">
-                            <div class="skill-progress" style="--percent: 95%;"></div>
-                        </div>
-                        <span class="tool-level">Expert</span>
+                    <div class="skill-pill" data-category="3d" data-name="Unreal Engine" data-percent="60%" data-level="Intermediate" data-desc="Driving the future of real-time virtual production and cinematic environments." data-emoji="🌐">
+                        <span class="skill-emoji">🌐</span>
+                        <span class="skill-name">Unreal Engine</span>
+                        <span class="skill-level-badge 3d">Intermediate</span>
                     </div>
-                    <div class="card-back glass-card">
-                        <p>Strategic social media design and high-velocity asset creation.</p>
+                    <div class="skill-pill" data-category="video" data-name="Capcut" data-percent="90%" data-level="Expert" data-desc="Fast, effective social media editing with optimized mobile pacing." data-emoji="✂️">
+                        <span class="skill-emoji">✂️</span>
+                        <span class="skill-name">Capcut</span>
+                        <span class="skill-level-badge video">Expert</span>
+                    </div>
+                    <div class="skill-pill" data-category="design" data-name="Canva PRO" data-percent="95%" data-level="Expert" data-desc="Strategic social media design and high-velocity asset creation." data-emoji="✨">
+                        <span class="skill-emoji">✨</span>
+                        <span class="skill-name">Canva PRO</span>
+                        <span class="skill-level-badge design">Expert</span>
+                    </div>
+                    <div class="skill-pill" data-category="social" data-name="Meta Business Suite" data-percent="85%" data-level="Expert" data-desc="Data-driven strategy for social growth and audience engagement." data-emoji="📊">
+                        <span class="skill-emoji">📊</span>
+                        <span class="skill-name">Meta Business Suite</span>
+                        <span class="skill-level-badge social">Expert</span>
                     </div>
                 </div>
             </div>
-            <div class="toolkit-card-3d" data-category="social">
-                <div class="card-inner">
-                    <div class="card-front glass-card">
-                        <div class="tool-icon">📊</div>
-                        <span class="tool-name">Meta Business Suite</span>
-                        <div class="skill-progress-bar">
-                            <div class="skill-progress" style="--percent: 85%;"></div>
-                        </div>
-                        <span class="tool-level">Expert</span>
+        </div>
+
+        <!-- Part B - Click-to-Expand Detail Panel -->
+        <div class="skill-detail-panel" id="skill-detail-panel">
+            <button class="panel-close-btn" id="panel-close-btn" aria-label="Close panel">&times;</button>
+            <div class="panel-content-wrapper">
+                <span class="panel-emoji" id="panel-emoji">🎞️</span>
+                <div class="panel-body">
+                    <div class="panel-header-line">
+                        <h3 class="panel-tool-name" id="panel-tool-name">After Effects</h3>
+                        <span class="panel-level-badge" id="panel-level-badge">Expert</span>
                     </div>
-                    <div class="card-back glass-card">
-                        <p>Data-driven strategy for social growth and audience engagement.</p>
+                    <p class="panel-desc" id="panel-desc">Master of compositing, motion graphics, and high-end cinematic color grading.</p>
+                    <div class="panel-stats">
+                        <div class="panel-percentage-label">Proficiency: <span class="panel-percent-value" id="panel-percent-value">95%</span></div>
+                        <div class="panel-progress-bar">
+                            <div class="panel-progress-fill" id="panel-progress-fill"></div>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
     </section>
 
     <!-- ═══ AI POWERED WORKFLOW ═══ -->
@@ -463,96 +549,11 @@
         </div>
     </section>
 
-    <!-- ═══ SELECTED WORK (BENTO GRID) ═══ -->
-    <section id="projects" class="container reveal" style="padding: 100px 0;">
-        <div class="showcase-layout">
-            <div class="showcase-header">
-                <span class="section-tag">Showcase</span>
-                <h2 class="section-title">Selected<br>Work</h2>
-            </div>
-            
-            <div class="projects-bento-grid">
-                <!-- Project 1 (FEAUTURED) -->
-                <div class="project-card-bento featured glass-card reveal">
-                    <div class="project-thumb" style="background-image: url('https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&q=80&w=800');"></div>
-                    <div class="project-info">
-                        <span class="project-tag">VFX</span>
-                        <h3 class="project-title">The BHAIRON Chronicles</h3>
-                        <p class="project-desc">Full VFX Supervision and high-end CGI integration for a cinematic action sequence. Focused on environment optimization and lighting.</p>
-                        <a href="#" class="view-details-link">View Details →</a>
-                    </div>
-                </div>
-                <!-- Project 2 -->
-                <div class="project-card-bento glass-card reveal">
-                    <div class="project-thumb" style="background-image: url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&q=80&w=800');"></div>
-                    <div class="project-info">
-                        <span class="project-tag">3D Design</span>
-                        <h3 class="project-title">UltraPro Evolution Ad</h3>
-                        <p class="project-desc">Hyper-realistic 3D product motion design for a global tech launch campaign. Created within a high-velocity production pipeline.</p>
-                        <a href="#" class="view-details-link">View Details →</a>
-                    </div>
-                </div>
-                <!-- Project 3 -->
-                <div class="project-card-bento glass-card reveal">
-                    <div class="project-thumb" style="background-image: url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=800');"></div>
-                    <div class="project-info">
-                        <span class="project-tag">Animation</span>
-                        <h3 class="project-title">Dhun Pahadi Production</h3>
-                        <p class="project-desc">Cinematic mixed media animation and 3D environment layout for a cultural documentary series.</p>
-                        <a href="#" class="view-details-link">View Details →</a>
-                    </div>
-                </div>
-                <!-- Project 4 -->
-                <div class="project-card-bento glass-card reveal">
-                    <div class="project-thumb" style="background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800');"></div>
-                    <div class="project-info">
-                        <span class="project-tag">CGI</span>
-                        <h3 class="project-title">Neo-Tokyo Virtual Production</h3>
-                        <p class="project-desc">Real-time environment art created in Unreal Engine 5.1, utilizing Lumen and Nanite for high-fidelity interactive playback.</p>
-                        <a href="#" class="view-details-link">View Details →</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+ 
 
-    <!-- ═══ EXPERIENCE ═══ -->
-    <section class="container reveal" id="experience" style="padding-bottom: 120px;">
-        <div class="section-header">
-            <span class="section-tag">Journey</span>
-            <h2 class="section-title">Experience</h2>
-        </div>
-        <div class="services-grid" style="grid-template-columns: 1fr;">
-            <div class="glass-card reveal" style="padding: 2.5rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 2rem;">
-                <div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Senior Photo & Video Editor</h3>
-                    <p style="color: var(--text-dim); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em;">Memories Yard Studio • 2024–2025</p>
-                </div>
-                <p style="max-width: 500px; color: var(--text-muted); font-size: 1rem; line-height: 1.6;">Spearheaded high-end cinematic content production, achieving a 90% client retention rate through innovative visual solutions and standard-setting quality control.</p>
-            </div>
-            <div class="glass-card reveal" style="padding: 2.5rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 2rem;">
-                <div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">VFX Director & Supervisor</h3>
-                    <p style="color: var(--text-dim); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em;">Hilly Harmonies Production • Project Based</p>
-                </div>
-                <p style="max-width: 500px; color: var(--text-muted); font-size: 1rem; line-height: 1.6;">Directed the full VFX pipeline for the "BHAIRON" production—from initial pre-visualization to final high-fidelity compositing.</p>
-            </div>
-            <div class="glass-card reveal" style="padding: 2.5rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 2rem;">
-                <div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">3D Artist & Graphic Designer</h3>
-                    <p style="color: var(--text-dim); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em;">UltraPro Link Pvt Ltd • Previous</p>
-                </div>
-                <p style="max-width: 500px; color: var(--text-muted); font-size: 1rem; line-height: 1.6;">Architected 50+ high-fidelity infographics and 3D marketing assets, significantly elevating the brand's digital presence in the tech sector.</p>
-            </div>
-            <div class="glass-card reveal" style="padding: 2.5rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 2rem;">
-                <div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Cinematographer & Social Manager</h3>
-                    <p style="color: var(--text-dim); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em;">Studio Parsons • Previous</p>
-                </div>
-                <p style="max-width: 500px; color: var(--text-muted); font-size: 1rem; line-height: 1.6;">Oversaw full-cycle music video production and strategic social media management for multiple high-reaching independent releases.</p>
-            </div>
-        </div>
-    </section>
+ 
+
+    
 
     <!-- ═══ EDUCATION ═══ -->
     <section class="container reveal" style="padding-bottom: 150px;">
