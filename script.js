@@ -731,4 +731,58 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    /* ─── Experience Section: Animated Timeline Observer ─── */
+    const expSection = document.getElementById('experience');
+    if (expSection) {
+        const expSpine  = document.getElementById('exp-spine');
+        const expDots   = expSection.querySelectorAll('.exp-dot');
+        const expCards  = expSection.querySelectorAll('.glass-card.exp-card');
+
+        /* Setup: alternating direction + stagger delays */
+        expCards.forEach((card, i) => {
+            if (i % 2 !== 0) card.classList.add('from-right');
+            card.style.transitionDelay = `${i * 0.15}s`;
+        });
+
+        /* Counter animation (easeOutCubic, fires once) */
+        const animateExpCounter = (el) => {
+            if (el.dataset.animated) return;
+            el.dataset.animated = 'true';
+            const target   = +el.dataset.target;
+            const duration = 1500;
+            const start    = performance.now();
+            requestAnimationFrame(function tick(now) {
+                const p    = Math.min((now - start) / duration, 1);
+                const ease = 1 - Math.pow(1 - p, 3);
+                el.textContent = Math.floor(ease * target);
+                if (p < 1) requestAnimationFrame(tick);
+                else el.textContent = target;
+            });
+        };
+
+        /* Single shared observer handles spine, dots, cards, counters */
+        const expObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const el = entry.target;
+
+                if (el === expSpine) {
+                    el.classList.add('visible');
+                } else if (el.classList.contains('exp-dot')) {
+                    const idx = [...expDots].indexOf(el);
+                    setTimeout(() => el.classList.add('visible'), idx * 120);
+                } else if (el.classList.contains('exp-card')) {
+                    el.classList.add('visible');
+                    el.querySelectorAll('.exp-counter').forEach(animateExpCounter);
+                }
+
+                expObs.unobserve(el);
+            });
+        }, { threshold: 0.2 });
+
+        if (expSpine) expObs.observe(expSpine);
+        expDots.forEach(dot  => expObs.observe(dot));
+        expCards.forEach(card => expObs.observe(card));
+    }
+
 });
