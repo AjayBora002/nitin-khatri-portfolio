@@ -101,19 +101,20 @@ body.cursor-hover #cursor-blur { width: 48px; height: 48px; border-color: rgba(2
     width: auto;
     object-fit: contain;
     margin-bottom: 1.5rem;
-    filter: grayscale(1) opacity(0.5);
+    filter: opacity(0.85);
     transition: all 0.5s var(--ease);
 }
 
 .branding-card:hover .brand-logo {
-    filter: grayscale(0) opacity(1);
-    transform: scale(1.15);
+    filter: opacity(1) drop-shadow(0 0 12px rgba(255, 184, 0, 0.4));
+    transform: scale(1.08);
 }
 
 .branding-card:hover {
-    transform: translateY(-10px);
-    border-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    border-color: var(--gold);
+    background: rgba(255, 184, 0, 0.04);
+    box-shadow: 0 0 30px rgba(255, 184, 0, 0.1), 0 20px 40px rgba(0, 0, 0, 0.3);
+    transform: translateY(-6px) scale(1.03);
 }
 
 .brand-name {
@@ -124,7 +125,7 @@ body.cursor-hover #cursor-blur { width: 48px; height: 48px; border-color: rgba(2
 }
 
 .branding-card:hover .brand-name {
-    color: #fff;
+    color: var(--gold);
 }
 
 /* ─── Brand Carousel ─── */
@@ -535,6 +536,7 @@ body.cursor-hover #cursor-blur { width: 48px; height: 48px; border-color: rgba(2
 /* ─── Services Section ─── */
 .section-header {
     margin-bottom: 4rem;
+    text-align: center;
 }
 .section-tag {
     font-size: 0.8rem;
@@ -543,12 +545,14 @@ body.cursor-hover #cursor-blur { width: 48px; height: 48px; border-color: rgba(2
     color: var(--text-dim);
     margin-bottom: 1rem;
     display: block;
+    text-align: center;
 }
 .section-title {
     font-size: clamp(2rem, 4vw, 3.5rem);
     font-weight: 700;
     letter-spacing: -0.02em;
     margin-bottom: 2rem;
+    text-align: center;
 }
 
 .skill-tabs {
@@ -1061,20 +1065,10 @@ body.loaded #loader .loader-content { opacity: 0; transform: scale(1.1); transit
 .card-back p { font-size: 0.95rem; line-height: 1.6; color: #fff; font-weight: 500; }
 
 /* ─── Bento Grid Showcase ─── */
-.showcase-layout {
-    display: flex;
-    gap: 80px;
-    flex-wrap: wrap;
-}
-.showcase-header {
-    flex-shrink: 0;
-    min-width: 250px;
-    padding-top: 20px;
-}
 .projects-bento-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 250px;
+    grid-auto-rows: 360px;
     gap: 20px;
     width: 100%;
 }
@@ -1088,7 +1082,7 @@ body.loaded #loader .loader-content { opacity: 0; transform: scale(1.1); transit
     border: 1px solid rgba(255, 255, 255, 0.05);
 }
 .project-card-bento.featured {
-    grid-row: span 2;
+    grid-row: span 1;
     grid-column: span 1;
 }
 .project-card-bento:hover {
