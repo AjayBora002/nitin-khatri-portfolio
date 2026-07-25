@@ -189,8 +189,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     counters.forEach(el => counterObs.observe(el));
 
+    /* ── Shared mouse-position state (written by ONE lightweight listener) ── */
+    let rawMouseX = window.innerWidth / 2;
+    let rawMouseY = window.innerHeight / 2;
+
+    window.addEventListener('mousemove', (e) => {
+        rawMouseX = e.clientX;
+        rawMouseY = e.clientY;
+    }, { passive: true });
+
     /* ── Hero Particles (Canvas API) ── */
     const canvas = document.getElementById('hero-particles');
+    let heroAnimId = null; // rAF handle so we can cancel it
+    let heroVisible = true; // tracked by IntersectionObserver
+
     if (canvas) {
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -202,59 +214,65 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         class Particle {
-            constructor() {
-                this.init();
-            }
+            constructor() { this.init(); }
             init() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
+                this.x  = Math.random() * canvas.width;
+                this.y  = Math.random() * canvas.height;
                 this.vx = (Math.random() - 0.5) * 0.5;
                 this.vy = (Math.random() - 0.5) * 0.5;
-                this.size = Math.random() * 2 + 1;
+                this.size  = Math.random() * 2 + 1;
                 this.alpha = Math.random() * 0.5 + 0.1;
             }
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
-
-                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.x < 0 || this.x > canvas.width)  this.vx *= -1;
                 if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
-                ctx.fill();
             }
         }
 
         for (let i = 0; i < particleCount; i++) particles.push(new Particle());
 
-        let mouseX = 0, mouseY = 0;
-        window.addEventListener('mousemove', (e) => {
-            mouseX = (e.clientX - window.innerWidth / 2) * 0.05;
-            mouseY = (e.clientY - window.innerHeight / 2) * 0.05;
-        });
-
-        const animate = () => {
+        // Particle mouse-parallax reads from the shared global below
+        const drawParticles = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles.forEach(p => {
                 p.update();
-                // Apply parallax
-                const px = p.x + mouseX;
-                const py = p.y + mouseY;
-                
+                // shared rawMouseX/rawMouseY are updated by the single mousemove listener
+                const px = p.x + (rawMouseX - window.innerWidth  / 2) * 0.05;
+                const py = p.y + (rawMouseY - window.innerHeight / 2) * 0.05;
                 ctx.beginPath();
                 ctx.arc(px, py, p.size, 0, Math.PI * 2);
                 ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
                 ctx.fill();
             });
-            requestAnimationFrame(animate);
         };
+
+        const heroAnimate = () => {
+            drawParticles();
+            heroAnimId = requestAnimationFrame(heroAnimate);
+        };
+
+        // Pause/resume hero canvas when hero scrolls out of view
+        const heroSection = document.querySelector('#hero') || canvas.closest('section');
+        if (heroSection) {
+            const heroPauseObs = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    heroVisible = entry.isIntersecting;
+                    if (heroVisible && heroAnimId === null) {
+                        heroAnimate(); // resume
+                    } else if (!heroVisible && heroAnimId !== null) {
+                        cancelAnimationFrame(heroAnimId);
+                        heroAnimId = null; // pause
+                    }
+                });
+            }, { threshold: 0 });
+            heroPauseObs.observe(heroSection);
+        }
 
         window.addEventListener('resize', resize);
         resize();
-        animate();
+        heroAnimate(); // initial start
     }
 
     /* ── Selected Work Reveal Transitions ── */
@@ -546,35 +564,40 @@ document.addEventListener('DOMContentLoaded', () => {
         if (img.complete) img.classList.remove('loading');
     });
 
-    /* ── Sleek Minimal Dot + Ring Cursor Tracker ── */
-    const cursor = document.getElementById('cursor');
+    /* ── Unified rAF loop: cursor dot (instant), blur ring (lerped), CSS vars ── */
+    const cursor     = document.getElementById('cursor');
     const cursorBlur = document.getElementById('cursor-blur');
-    let blurX = window.innerWidth / 2, blurY = window.innerHeight / 2;
-    let blurTargetX = blurX, blurTargetY = blurY;
 
-    document.addEventListener('mousemove', (e) => {
+
+    // Half-sizes for centering via translate3d (matches CSS width/height)
+    const DOT_HALF  = 4;  // #cursor is 8px
+    const RING_HALF = 18; // #cursor-blur is 36px
+
+    let blurX = rawMouseX, blurY = rawMouseY;
+
+    let rafId = null;
+    const masterRAF = () => {
+        // 1. Cursor dot — zero lerp, instant tracking
         if (cursor) {
-            cursor.style.left = `${e.clientX}px`;
-            cursor.style.top = `${e.clientY}px`;
+            cursor.style.transform =
+                `translate3d(${rawMouseX - DOT_HALF}px, ${rawMouseY - DOT_HALF}px, 0)`;
         }
-        blurTargetX = e.clientX;
-        blurTargetY = e.clientY;
-        document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
-        document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
-    });
 
-    const animateBlur = () => {
-        blurX += (blurTargetX - blurX) * 0.12;
-        blurY += (blurTargetY - blurY) * 0.12;
+        // 2. Blur ring — trailing lerp only on the ring
+        blurX += (rawMouseX - blurX) * 0.12;
+        blurY += (rawMouseY - blurY) * 0.12;
         if (cursorBlur) {
-            cursorBlur.style.left = `${blurX}px`;
-            cursorBlur.style.top = `${blurY}px`;
+            cursorBlur.style.transform =
+                `translate3d(${blurX - RING_HALF}px, ${blurY - RING_HALF}px, 0)`;
         }
-        requestAnimationFrame(animateBlur);
+
+        // 3. CSS variables — batched once per frame (not per mousemove pixel)
+        document.documentElement.style.setProperty('--mouse-x', `${rawMouseX}px`);
+        document.documentElement.style.setProperty('--mouse-y', `${rawMouseY}px`);
+
+        rafId = requestAnimationFrame(masterRAF);
     };
-    animateBlur();
-
-
+    masterRAF();
 
     const interactiveEls = document.querySelectorAll('a, button, .toolkit-card-3d, .project-reel-item, .magnetic');
     interactiveEls.forEach(el => {

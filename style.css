@@ -56,7 +56,7 @@ body {
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
-  transform: translate(-50%, -50%);
+  will-change: transform;
   transition: width 0.2s, height 0.2s, background 0.2s;
 }
 
@@ -71,8 +71,8 @@ body {
   border-radius: 50%;
   pointer-events: none;
   z-index: 9998;
-  transform: translate(-50%, -50%);
-  transition: transform 0.12s ease, width 0.2s, height 0.2s, border-color 0.2s;
+  will-change: transform;
+  transition: width 0.2s, height 0.2s, border-color 0.2s;
 }
 
 body.cursor-hover #cursor { width: 12px; height: 12px; background: var(--gold, #f59e0b); }
