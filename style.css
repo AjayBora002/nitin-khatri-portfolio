@@ -242,6 +242,60 @@ body.cursor-hover #cursor-blur { width: 48px; height: 48px; border-color: rgba(2
     transform: translateY(0);
 }
 
+/* ─── Word Reveal Animation ─── */
+.word-reveal {
+    display: inline-block;
+    overflow: hidden;
+    /* Must match the parent line-height so the clip box
+       is never taller than one line — prevents inter-line bleed */
+    line-height: 1.1;
+    /* Extra bottom clearance so descenders aren't clipped
+       during the slide-up translateY animation */
+    padding-bottom: 0.08em;
+    /* Use baseline alignment; bottom causes a fractional-px
+       misalignment when line-height < 1 */
+    vertical-align: baseline;
+}
+
+.word-inner {
+    display: inline-block;
+    /* Start fully below the clip boundary */
+    transform: translateY(105%);
+    transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+    /* Keep it on the same baseline plane as its siblings */
+    vertical-align: top;
+    line-height: 1.1;
+}
+
+.word-inner.visible {
+    transform: translateY(0);
+}
+
+/* ─── Gradient Text (Hero Title) ───
+   Before splitText runs: the h1 text is direct, so background-clip:text
+   on the parent works fine. After splitText, all text moves into
+   .word-inner children — background-clip:text only clips the PARENT's
+   background to the parent's OWN text (now empty), and -webkit-text-fill-color
+   transparent IS inherited, making child text invisible with no gradient to show.
+   Fix: drop the gradient from the parent, give each .word-inner its own clip. */
+.gradient-text {
+    /* Plain white fallback while text is still in the h1 directly
+       (before splitText fires). No -webkit-text-fill-color so children
+       don't silently inherit a transparent fill they can't resolve. */
+    color: #ffffff;
+}
+
+/* Each word-span carries its own gradient so background-clip:text
+   clips correctly to THAT span's text characters, not the empty parent. */
+.gradient-text .word-inner {
+    background: linear-gradient(135deg, #ffffff 0%, rgba(255,255,255,0.82) 55%, rgba(255,184,0,0.95) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent; /* fallback for non-webkit */
+}
+
+
 /* ─── Cinematic Bento Reveal ─── */
 .reveal-bento {
     opacity: 0;
@@ -421,7 +475,7 @@ body.cursor-hover #cursor-blur { width: 48px; height: 48px; border-color: rgba(2
 .hero-title {
     font-size: clamp(3rem, 10vw, 7rem);
     font-weight: 800;
-    line-height: 0.95;
+    line-height: 1.1;
     margin-bottom: 1.5rem;
     letter-spacing: -0.04em;
 }

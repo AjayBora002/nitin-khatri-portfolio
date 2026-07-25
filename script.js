@@ -371,12 +371,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* ── Hero Scramble Text & Start Sequence ── */
     function startHeroAnimations() {
+        // 1. Scramble the tag line
         const scrambleEl = document.querySelector('.scramble-text');
         if (scrambleEl) {
             const finalContent = "Graphic Designer & VFX Artist";
             const symbols = "!@#$%^&*()_+{}:<>?|~/\\";
             let iteration = 0;
-            
             const interval = setInterval(() => {
                 scrambleEl.textContent = finalContent.split("")
                     .map((char, index) => {
@@ -385,13 +385,28 @@ document.addEventListener('DOMContentLoaded', () => {
                         return symbols[Math.floor(Math.random() * symbols.length)];
                     })
                     .join("");
-                
                 if (iteration >= finalContent.length) {
                     clearInterval(interval);
                     scrambleEl.textContent = finalContent;
                 }
-                iteration += 1/2;
+                iteration += 1 / 2;
             }, 40);
+        }
+
+        // 2. Split and animate the hero title.
+        //    splitText runs HERE (not in a rAF at page load) so it fires
+        //    in the same guaranteed moment as the word-reveal triggers —
+        //    after the loader curtain has fully opened.
+        const heroTitle = document.querySelector('.hero-title');
+        if (heroTitle) {
+            splitText(heroTitle);
+            // One rAF after splitText so the browser has painted the
+            // new span structure before we start animating it.
+            requestAnimationFrame(() => {
+                heroTitle.querySelectorAll('.word-inner').forEach((word, i) => {
+                    setTimeout(() => word.classList.add('visible'), i * 120);
+                });
+            });
         }
     }
 
@@ -657,48 +672,65 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /* ─── Paragraph/Heading Word Reveal ─── */
-    const splitText = (el) => {
-        const text = el.innerText.replace(/\n/g, ' <br> '); // Preserve line breaks
+    /* ─── Word Reveal ── splitText helper ───
+
+       Uses innerHTML + a sentinel character to handle <br> tags
+       reliably regardless of element visibility or layout state.
+       Does NOT use innerText (layout-dependent) or childNodes
+       walking (requires element to already be in the live DOM
+       with correct node types). */
+    function splitText(el) {
+        // 1. Capture raw markup so <br> tags are preserved exactly
+        const rawHTML = el.innerHTML;
+
+        // 2. Replace every <br> variant with a unique sentinel
+        //    that cannot appear in normal text content
+        const SENTINEL = ' LINEBREAK ';
+        const withSentinel = rawHTML.replace(/<br\s*\/?>/gi, SENTINEL);
+
+        // 3. Strip any remaining HTML tags (keeps plain text only)
+        const plainText = withSentinel.replace(/<[^>]+>/g, '');
+
+        // 4. Split into logical lines on the sentinel
+        const lines = plainText.split(SENTINEL);
+
+        // 5. Rebuild element with word-spans and real <br> elements
         el.innerHTML = '';
-        text.split(' ').forEach(word => {
-            if (word === '<br>') {
+        lines.forEach((line, lineIdx) => {
+            if (lineIdx > 0) {
                 el.appendChild(document.createElement('br'));
-            } else if (word.trim() !== '') {
-                const span = document.createElement('span');
-                span.className = 'word-reveal';
+            }
+            const words = line.trim().split(/[ \t]+/); // space/tab only — not \n
+            words.forEach(word => {
+                if (!word) return;
+                const outer = document.createElement('span');
+                outer.className = 'word-reveal';
                 const inner = document.createElement('span');
                 inner.className = 'word-inner';
-                inner.textContent = word + '\u00A0';
-                span.appendChild(inner);
-                el.appendChild(span);
-            }
-        });
-    };
-
-    const revealTitles = document.querySelectorAll('.section-title, .hero-title');
-    revealTitles.forEach(title => {
-        splitText(title);
-        const words = title.querySelectorAll('.word-inner');
-        
-        // Immediate reveal for Hero Title, Scroll-reveal for others
-        if (title.classList.contains('hero-title')) {
-            words.forEach((word, i) => {
-                setTimeout(() => word.classList.add('visible'), 400 + (i * 100));
+                inner.textContent = word + '\u00A0'; // NBSP keeps word spacing
+                outer.appendChild(inner);
+                el.appendChild(outer);
             });
-        } else {
+        });
+    }
+
+    /* Section titles only (not hero — hero is handled inside startHeroAnimations) */
+    const sectionTitles = document.querySelectorAll('.section-title');
+    requestAnimationFrame(() => {
+        sectionTitles.forEach(title => {
+            splitText(title);
             const obs = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        words.forEach((word, i) => {
+                        entry.target.querySelectorAll('.word-inner').forEach((word, i) => {
                             setTimeout(() => word.classList.add('visible'), i * 80);
                         });
                         obs.unobserve(entry.target);
                     }
                 });
-            }, { threshold: 0.1 }); // Lower threshold for reliability
+            }, { threshold: 0.1 });
             obs.observe(title);
-        }
+        });
     });
 
     /* ── Smooth Anchor Scrolling ── */
