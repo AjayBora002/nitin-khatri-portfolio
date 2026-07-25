@@ -1637,12 +1637,283 @@ body.loaded #loader .loader-content { opacity: 0; transform: scale(1.1); transit
 }
 
 /* ─── Global Responsive Overrides ─── */
+
+/* ═══════════════════════════════════════════════
+   VIDEO SHOWCASE GRID  (vsg-*)
+   ═══════════════════════════════════════════════ */
+
+/* ── Grid layout ── */
+.vsg-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    width: 100%;
+}
+
+/* ── Individual card ── */
+.vsg-card {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    transition: transform 0.45s var(--ease),
+                border-color 0.35s ease,
+                box-shadow 0.45s var(--ease);
+    aspect-ratio: 16 / 10;   /* taller than old bento — real thumbnail feel */
+}
+.vsg-card:hover {
+    transform: translateY(-10px) scale(1.015);
+    border-color: var(--gold);
+    box-shadow: 0 32px 64px rgba(0,0,0,0.6),
+                0 0 0 1px var(--gold),
+                0 0 40px -8px var(--gold-glow);
+}
+
+/* ── Thumb / video wrapper ── */
+.vsg-thumb {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* ── The video itself ── */
+.vsg-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    /* Smooth crossfade when video starts playing over the poster */
+    transition: opacity 0.5s ease;
+}
+
+/* ── Overlay gradient + info ── */
+.vsg-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.6rem;
+    background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.92) 0%,
+        rgba(0,0,0,0.35) 50%,
+        rgba(0,0,0,0.0) 100%
+    );
+    z-index: 2;
+    pointer-events: none; /* card itself is clickable */
+}
+
+/* Category tag — top-left */
+.vsg-tag {
+    position: absolute;
+    top: 1.25rem;
+    left: 1.25rem;
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    background: rgba(0,0,0,0.55);
+    padding: 0.35rem 0.75rem;
+    border-radius: 4px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,184,0,0.3);
+}
+
+/* Central play button — visible on non-touch, fades on hover-video-playing */
+.vsg-play-btn {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.4s ease, transform 0.4s var(--ease);
+}
+.vsg-play-btn svg {
+    width: 52px;
+    height: 52px;
+    color: #fff;
+    filter: drop-shadow(0 0 14px rgba(255,184,0,0.7));
+    background: rgba(255,184,0,0.15);
+    border-radius: 50%;
+    padding: 10px;
+    border: 1.5px solid rgba(255,184,0,0.5);
+    transition: background 0.3s ease, transform 0.3s var(--ease);
+}
+.vsg-card:hover .vsg-play-btn svg {
+    background: rgba(255,184,0,0.3);
+    transform: scale(1.12);
+}
+/* Hide play btn while card is previewing video (JS adds .is-previewing) */
+.vsg-card.is-previewing .vsg-play-btn {
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+/* Bottom meta: title + hint */
+.vsg-meta {
+    position: relative;
+    z-index: 3;
+    pointer-events: none;
+}
+.vsg-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.3rem;
+    line-height: 1.3;
+    transition: color 0.3s ease;
+}
+.vsg-card:hover .vsg-title { color: var(--gold); }
+
+.vsg-hint {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    transform: translateY(6px);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s var(--ease);
+}
+.vsg-card:hover .vsg-hint {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Gold shimmer reveal border on card entry */
+.vsg-card.reveal.visible {
+    animation: vsg-border-pulse 0.8s var(--ease) forwards;
+    animation-delay: calc(var(--card-i, 0) * 80ms);
+}
+@keyframes vsg-border-pulse {
+    0%   { border-color: var(--gold); box-shadow: 0 0 20px -4px var(--gold-glow); }
+    100% { border-color: var(--border); box-shadow: none; }
+}
+
+/* ═══════════════════════════════════════════════
+   VIDEO LIGHTBOX MODAL
+   ═══════════════════════════════════════════════ */
+
+.vsg-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Animation */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+}
+.vsg-lightbox:not([hidden]) {
+    opacity: 1;
+    pointer-events: all;
+}
+/* Keep the element in the accessibility tree but invisible when hidden  */
+.vsg-lightbox[hidden] {
+    display: flex !important; /* override UA hidden */
+    visibility: hidden;
+}
+
+.vsg-lightbox-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.88);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    cursor: pointer;
+}
+
+.vsg-lightbox-inner {
+    position: relative;
+    width: min(90vw, 1100px);
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    z-index: 1;
+    transform: translateY(24px) scale(0.97);
+    transition: transform 0.4s var(--ease);
+}
+.vsg-lightbox:not([hidden]) .vsg-lightbox-inner {
+    transform: translateY(0) scale(1);
+}
+
+/* Close button */
+.vsg-lightbox-close {
+    position: absolute;
+    top: -3rem;
+    right: 0;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid var(--border-hover);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #fff;
+    transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+    padding: 0;
+}
+.vsg-lightbox-close svg { width: 18px; height: 18px; }
+.vsg-lightbox-close:hover {
+    background: rgba(255,184,0,0.2);
+    border-color: var(--gold);
+    transform: rotate(90deg);
+}
+
+/* Title bar */
+.vsg-lightbox-title-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+.vsg-lightbox-tag {
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    background: rgba(255,184,0,0.12);
+    border: 1px solid rgba(255,184,0,0.3);
+    padding: 0.3rem 0.7rem;
+    border-radius: 4px;
+}
+.vsg-lightbox-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+/* The full video player */
+.vsg-lightbox-video {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    background: #000;
+    display: block;
+    border: 1px solid var(--border);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.7),
+                0 0 0 1px rgba(255,184,0,0.15);
+}
+
 @media (max-width: 1024px) {
+
     .container { padding: 0 7vw; }
     .meet-section { grid-template-columns: 1fr; gap: 40px; padding: 100px 0; }
     .meet-image-container { order: -1; max-width: 500px; margin: 0 auto; }
     .insight-container { flex-direction: column; gap: 40px; }
     .footer-stats { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+    /* VSG: 2-column on tablet */
+    .vsg-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
@@ -1660,6 +1931,12 @@ body.loaded #loader .loader-content { opacity: 0; transform: scale(1.1); transit
     
     .projects-bento-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
     .project-card-bento { height: 400px; grid-column: span 1 !important; grid-row: span 1 !important; }
+    /* VSG: single column on mobile */
+    .vsg-grid { grid-template-columns: 1fr; gap: 16px; }
+    .vsg-card { aspect-ratio: 16 / 9; }
+    /* Lightbox: tighter on mobile */
+    .vsg-lightbox-inner { width: 95vw; }
+    .vsg-lightbox-close { top: -2.5rem; }
     
     .toolkit-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
     

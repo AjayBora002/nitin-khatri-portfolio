@@ -840,4 +840,126 @@ document.addEventListener('DOMContentLoaded', () => {
         expCards.forEach(card => expObs.observe(card));
     }
 
+    /* ═══════════════════════════════════════════════
+       VIDEO SHOWCASE GRID — Interactions
+       ═══════════════════════════════════════════════ */
+    (() => {
+        const isTouchDevice = () => window.matchMedia('(hover: none)').matches;
+
+        const lightbox   = document.getElementById('vsg-lightbox');
+        const lbVideo    = document.getElementById('vsg-lb-video');
+        const lbTag      = document.getElementById('vsg-lb-tag');
+        const lbTitle    = document.getElementById('vsg-lb-title');
+        const lbClose    = document.getElementById('vsg-close-btn');
+        const lbBackdrop = lightbox?.querySelector('.vsg-lightbox-backdrop');
+
+        /* ── Stagger index for gold-pulse reveal animation ── */
+        document.querySelectorAll('.vsg-card').forEach((card, i) => {
+            card.style.setProperty('--card-i', i);
+        });
+
+        /* ──────────────────────────────────────────────────
+           Lazy-load helper: injects the video src only when
+           the card enters the viewport (rootMargin 200px so
+           it starts buffering slightly before it's visible)
+        ────────────────────────────────────────────────── */
+        const lazyObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const card  = entry.target;
+                const video = card.querySelector('.vsg-video');
+                if (video && !video.src) {
+                    video.src = card.dataset.video;
+                    video.load(); // preload="none" → trigger metadata load
+                }
+                lazyObs.unobserve(card);
+            });
+        }, { rootMargin: '200px 0px' });
+
+        /* ──────────────────────────────────────────────────
+           Mobile autoplay: when a card is >60% visible on a
+           touch device, autoplay the muted preview loop.
+        ────────────────────────────────────────────────── */
+        const mobileAutoObs = new IntersectionObserver((entries) => {
+            if (!isTouchDevice()) return;
+            entries.forEach(entry => {
+                const card  = entry.target;
+                const video = card.querySelector('.vsg-video');
+                if (!video) return;
+                if (entry.isIntersecting) {
+                    video.play().catch(() => {});
+                    card.classList.add('is-previewing');
+                } else {
+                    video.pause();
+                    video.currentTime = 0;
+                    card.classList.remove('is-previewing');
+                }
+            });
+        }, { threshold: 0.6 });
+
+        /* ──────────────────────────────────────────────────
+           Lightbox open / close
+        ────────────────────────────────────────────────── */
+        const openLightbox = (card) => {
+            if (!lightbox) return;
+            const src   = card.dataset.video;
+            const tag   = card.dataset.tag   || '';
+            const title = card.dataset.title || '';
+
+            lbVideo.src = src;
+            lbVideo.load();
+            if (lbTag)   lbTag.textContent   = tag;
+            if (lbTitle) lbTitle.textContent = title;
+
+            lightbox.removeAttribute('hidden');
+            document.body.style.overflow = 'hidden';
+
+            // Begin play after a tick (allows CSS transition to start)
+            requestAnimationFrame(() => lbVideo.play().catch(() => {}));
+        };
+
+        const closeLightbox = () => {
+            if (!lightbox) return;
+            lbVideo.pause();
+            lbVideo.src = '';     // release the network request
+            lightbox.setAttribute('hidden', '');
+            document.body.style.overflow = '';
+        };
+
+        if (lbClose)    lbClose.addEventListener('click', closeLightbox);
+        if (lbBackdrop) lbBackdrop.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        /* ──────────────────────────────────────────────────
+           Wire up each card
+        ────────────────────────────────────────────────── */
+        document.querySelectorAll('.vsg-card').forEach(card => {
+            const video = card.querySelector('.vsg-video');
+
+            // Lazy-load observation
+            lazyObs.observe(card);
+
+            // Mobile autoplay observation
+            mobileAutoObs.observe(card);
+
+            // Desktop hover preview (only on pointer devices)
+            card.addEventListener('mouseenter', () => {
+                if (isTouchDevice() || !video) return;
+                video.play().catch(() => {});
+                card.classList.add('is-previewing');
+            });
+            card.addEventListener('mouseleave', () => {
+                if (isTouchDevice() || !video) return;
+                video.pause();
+                video.currentTime = 0;
+                card.classList.remove('is-previewing');
+            });
+
+            // Click → lightbox
+            card.addEventListener('click', () => openLightbox(card));
+        });
+    })();
+
 });
