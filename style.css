@@ -1975,7 +1975,7 @@ body.loaded #loader .loader-content { opacity: 0; transform: scale(1.1); transit
     justify-content: center;
     align-items: center;
     box-shadow: 0 10px 20px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,255,255,0.2);
-    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .app-icon img {
@@ -1986,9 +1986,26 @@ body.loaded #loader .loader-content { opacity: 0; transform: scale(1.1); transit
 }
 
 .app-icon-wrapper:hover .app-icon {
-    transform: translateY(-8px) scale(1.05);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.3);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px var(--glow, rgba(0,0,0,0.3)), inset 0 1px 1px rgba(255,255,255,0.3);
 }
+
+/* Staggered Pop-in Reveal */
+.app-icon-wrapper.reveal {
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+    transition: opacity 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.app-icon-wrapper.reveal.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+.app-icon-wrapper:nth-child(1).reveal { transition-delay: 0ms; }
+.app-icon-wrapper:nth-child(2).reveal { transition-delay: 80ms; }
+.app-icon-wrapper:nth-child(3).reveal { transition-delay: 160ms; }
+.app-icon-wrapper:nth-child(4).reveal { transition-delay: 240ms; }
+.app-icon-wrapper:nth-child(5).reveal { transition-delay: 320ms; }
+.app-icon-wrapper:nth-child(6).reveal { transition-delay: 400ms; }
 
 .app-icon-label {
     font-size: 0.8rem;
