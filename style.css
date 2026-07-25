@@ -1951,3 +1951,48 @@ body.loaded #loader .loader-content { opacity: 0; transform: scale(1.1); transit
     .toolkit-grid { grid-template-columns: 1fr; }
     .footer-stats { grid-template-columns: 1fr; }
 }
+
+/* ─── Software Toolkit Grid ─── */
+.software-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.software-card {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+}
+
+.software-card .software-emoji {
+    font-size: 4rem;
+    line-height: 1;
+}
+
+.software-card h3 {
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+.software-card p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+@media (max-width: 1024px) {
+    .software-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 768px) {
+    .software-grid {
+        grid-template-columns: 1fr;
+    }
+}

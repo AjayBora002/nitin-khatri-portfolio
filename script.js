@@ -496,112 +496,17 @@ document.addEventListener('DOMContentLoaded', () => {
         navigator.clipboard.writeText(phone).then(() => showToast('Phone number copied!'));
     });
 
-    /* ─── Skill Filtering Logic (Ticker Pills) ─── */
-    const filterBtns = document.querySelectorAll('.skill-tab');
-    const allPills   = document.querySelectorAll('.skill-pill');
-    const detailPanel = document.getElementById('skill-detail-panel');
-    const closeBtn    = document.getElementById('panel-close-btn');
+    /* ─── Skill Filtering Logic — removed (marquee/tab UI removed from HTML) ─── */
+    // Tabs (.skill-tab), pills (.skill-pill), and detail panel no longer exist in the DOM.
+    // This block is intentionally left as a comment to avoid errors propagating downward.
 
-    // Panel element refs
-    const panelEmoji    = document.getElementById('panel-emoji');
-    const panelName     = document.getElementById('panel-tool-name');
-    const panelBadge    = document.getElementById('panel-level-badge');
-    const panelDesc     = document.getElementById('panel-desc');
-    const panelPercent  = document.getElementById('panel-percent-value');
-    const panelFill     = document.getElementById('panel-progress-fill');
-
-    let selectedPill = null;
-
-    /* --- Helper: close detail panel --- */
-    const closePanel = () => {
-        if (detailPanel) detailPanel.classList.remove('open');
-        if (panelFill)   panelFill.style.width = '0';
-        if (selectedPill) {
-            selectedPill.classList.remove('selected');
-            selectedPill = null;
-        }
-    };
-
-    /* --- Helper: open detail panel with pill data --- */
-    const openPanel = (pill) => {
-        const cat     = pill.getAttribute('data-category') || '';
-        const name    = pill.getAttribute('data-name') || '';
-        const percent = pill.getAttribute('data-percent') || '0%';
-        const level   = pill.getAttribute('data-level') || '';
-        const desc    = pill.getAttribute('data-desc') || '';
-        const emoji   = pill.getAttribute('data-emoji') || '🛠️';
-
-        if (panelEmoji)   panelEmoji.textContent   = emoji;
-        if (panelName)    panelName.textContent     = name;
-        if (panelBadge)   panelBadge.textContent    = level;
-        if (panelDesc)    panelDesc.textContent     = desc;
-        if (panelPercent) panelPercent.textContent  = percent;
-
-        // Colour the progress fill by category
-        if (panelFill) {
-            panelFill.className = 'panel-progress-fill ' + cat;
-            // Trigger the width transition on next frame
-            panelFill.style.width = '0';
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => { panelFill.style.width = percent; });
-            });
-        }
-
-        if (detailPanel) detailPanel.classList.add('open');
-    };
-
-    /* --- Tab filter buttons: toggle .dimmed on pills, close panel --- */
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const filter = btn.getAttribute('data-filter');
-
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            // Close panel when switching tabs
-            closePanel();
-
-            // Dim pills that don't match the active filter
-            allPills.forEach(pill => {
-                const cat = pill.getAttribute('data-category');
-                if (filter === 'all' || cat === filter) {
-                    pill.classList.remove('dimmed');
-                } else {
-                    pill.classList.add('dimmed');
-                }
-            });
-        });
+    /* ─── Close button ─── */
+    const closeBtn = document.getElementById('panel-close-btn');
+    if (closeBtn) closeBtn.addEventListener('click', () => {
+        const p = document.getElementById('skill-detail-panel');
+        if (p) p.classList.remove('open');
     });
 
-    /* --- Pill click: toggle detail panel --- */
-    allPills.forEach(pill => {
-        pill.addEventListener('click', () => {
-            if (pill.classList.contains('dimmed')) return;
-
-            if (selectedPill === pill) {
-                // Clicking the same pill closes the panel
-                closePanel();
-                return;
-            }
-
-            // Deselect previous
-            if (selectedPill) selectedPill.classList.remove('selected');
-
-            selectedPill = pill;
-            pill.classList.add('selected');
-            openPanel(pill);
-
-            // Smooth-scroll the panel into view on mobile
-            if (detailPanel && window.innerWidth < 768) {
-                setTimeout(() => {
-                    detailPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                }, 80);
-            }
-        });
-    });
-
-    /* --- Close button --- */
-    if (closeBtn) closeBtn.addEventListener('click', closePanel);
 
     /* ─── Image Lazy Loading Blur-Up ─── */
     const images = document.querySelectorAll('img');
