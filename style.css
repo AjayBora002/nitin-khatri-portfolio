@@ -473,7 +473,7 @@ body.cursor-hover #cursor-blur { width: 48px; height: 48px; border-color: rgba(2
 }
 
 .hero-title {
-    font-size: clamp(3rem, 10vw, 7rem);
+    font-size: clamp(3rem, 7vw, 7rem);
     font-weight: 800;
     line-height: 1.1;
     margin-bottom: 1.5rem;
