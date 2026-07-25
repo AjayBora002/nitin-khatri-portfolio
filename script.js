@@ -278,46 +278,96 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ── Selected Work Reveal Transitions ── */
     // Bento cards are revealed via the standard revealObs already defined.
 
-    /* ── Scroll Tracking & Navigation ── */
+    /* ── Consolidated Scroll Handler (Throttled & Batched) ── */
     const scrollBar = document.getElementById('scroll-bar');
     const sections = document.querySelectorAll('section[id]');
     const navDots = document.querySelectorAll('.dot-nav');
+    const nav = document.querySelector('.nav');
+    const meetImage = document.querySelector('.meet-image');
+    const meetBg = document.querySelector('.meet-section');
+    
+    // Cache section offset tops since they rarely change unless resizing
+    let sectionCache = [];
+    const updateSectionCache = () => {
+        sectionCache = Array.from(sections).map(sec => ({
+            id: sec.getAttribute('id'),
+            top: sec.offsetTop
+        }));
+    };
+    updateSectionCache();
+    window.addEventListener('resize', updateSectionCache);
+
+    let isScrolling = false;
 
     window.addEventListener('scroll', () => {
-        // Progress Bar
-        const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
-        const scrollStatus = (window.pageYOffset / totalScroll) * 100;
-        if (scrollBar) scrollBar.style.width = `${scrollStatus}%`;
+        if (!isScrolling) {
+            window.requestAnimationFrame(() => {
+                /* --- 1. BATCH READS --- */
+                const scrollY = window.pageYOffset;
+                const innerHeight = window.innerHeight;
+                const scrollHeight = document.documentElement.scrollHeight;
+                
+                // Parallax reads
+                let meetRect = null;
+                if (meetImage && meetImage.parentElement) {
+                    meetRect = meetImage.parentElement.getBoundingClientRect();
+                }
 
-        // Active Section Tracking
-        let currentSection = "";
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            if (window.pageYOffset >= (sectionTop - 200)) {
-                currentSection = section.getAttribute('id');
-            }
-        });
+                /* --- 2. BATCH WRITES --- */
+                
+                // Progress Bar
+                if (scrollBar) {
+                    const totalScroll = scrollHeight - innerHeight;
+                    const scrollStatus = (scrollY / totalScroll) * 100;
+                    scrollBar.style.width = `${scrollStatus}%`;
+                }
 
-        navDots.forEach(dot => {
-            dot.classList.remove('active');
-            if (dot.getAttribute('href').slice(1) === currentSection) {
-                dot.classList.add('active');
-            }
-        });
+                // Active Section Tracking
+                let currentSection = "";
+                sectionCache.forEach(rect => {
+                    if (scrollY >= (rect.top - 200)) {
+                        currentSection = rect.id;
+                    }
+                });
+                navDots.forEach(dot => {
+                    if (dot.getAttribute('href').slice(1) === currentSection) {
+                        if (!dot.classList.contains('active')) dot.classList.add('active');
+                    } else {
+                        if (dot.classList.contains('active')) dot.classList.remove('active');
+                    }
+                });
 
-        // Navbar Transformation
-        const nav = document.querySelector('.nav');
-        if (window.scrollY > 50) {
-            nav.style.background = 'rgba(10, 10, 10, 0.9)';
-            nav.style.height = '60px';
-            nav.style.top = '1rem';
-            nav.style.padding = '0 1.5rem';
-        } else {
-            nav.style.background = 'rgba(10, 10, 10, 0.4)';
-            nav.style.height = '70px';
-            nav.style.top = '2rem';
-            nav.style.padding = '0 2rem';
+                // Navbar Transformation
+                if (nav) {
+                    if (scrollY > 50) {
+                        nav.style.background = 'rgba(10, 10, 10, 0.9)';
+                        nav.style.height = '60px';
+                        nav.style.top = '1rem';
+                        nav.style.padding = '0 1.5rem';
+                    } else {
+                        nav.style.background = 'rgba(10, 10, 10, 0.4)';
+                        nav.style.height = '70px';
+                        nav.style.top = '2rem';
+                        nav.style.padding = '0 2rem';
+                    }
+                }
+
+                // Parallax Depth (About Section)
+                if (meetImage && meetRect) {
+                    if (meetRect.top < innerHeight && meetRect.bottom > 0) {
+                        const offset = (innerHeight / 2 - meetRect.top) * 0.15;
+                        meetImage.style.transform = `translateY(${offset}px) scale(1.1)`;
+                        
+                        if (meetBg) {
+                            const bgOffset = (innerHeight / 2 - meetRect.top) * 0.05;
+                            meetBg.style.backgroundPosition = `center ${50 + bgOffset}%`;
+                        }
+                    }
+                }
+
+                isScrolling = false;
+            });
+            isScrolling = true;
         }
     }, { passive: true });
 
@@ -659,22 +709,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* ── Parallax Depth (About Section) ── */
-    const meetImage = document.querySelector('.meet-image');
-    const meetBg = document.querySelector('.meet-section');
-    window.addEventListener('scroll', () => {
-        if (meetImage) {
-            const rect = meetImage.parentElement.getBoundingClientRect();
-            if (rect.top < window.innerHeight && rect.bottom > 0) {
-                const offset = (window.innerHeight / 2 - rect.top) * 0.15;
-                meetImage.style.transform = `translateY(${offset}px) scale(1.1)`;
-                
-                if (meetBg) {
-                    const bgOffset = (window.innerHeight / 2 - rect.top) * 0.05;
-                    meetBg.style.backgroundPosition = `center ${50 + bgOffset}%`;
-                }
-            }
-        }
-    });
+    // Merged into the main window scroll handler above.
 
     /* ── Audio Ambience Logic ── */
     const audioBtn = document.getElementById('audio-toggle');
