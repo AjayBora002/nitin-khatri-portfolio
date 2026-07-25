@@ -1947,47 +1947,74 @@ body.loaded #loader .loader-content { opacity: 0; transform: scale(1.1); transit
     .footer-stats { grid-template-columns: 1fr; }
 }
 
-/* ─── Software Toolkit Grid ─── */
-.software-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+/* ─── App Icon Grid ─── */
+.app-icon-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3rem 4rem;
     margin-top: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.software-card {
-    padding: 3rem 2.5rem;
+.app-icon-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 0.8rem;
+    width: 80px;
+}
+
+.app-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,255,255,0.2);
+    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+
+.app-icon img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+.app-icon-wrapper:hover .app-icon {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.3);
+}
+
+.app-icon-label {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    opacity: 0.8;
     text-align: center;
-    gap: 1.5rem;
+    font-weight: 500;
+    transition: opacity 0.3s ease, color 0.3s ease;
 }
 
-.software-card .software-emoji {
-    font-size: 4rem;
-    line-height: 1;
+.app-icon-wrapper:hover .app-icon-label {
+    opacity: 1;
+    color: var(--text-light);
 }
 
-.software-card h3 {
-    font-size: 1.8rem;
-    margin: 0;
-}
-
-.software-card p {
-    color: var(--text-muted);
-    font-size: 1rem;
-    line-height: 1.6;
-    margin: 0;
-}
-
-@media (max-width: 1024px) {
-    .software-grid {
-        grid-template-columns: repeat(2, 1fr);
+@media (max-width: 600px) {
+    .app-icon-grid {
+        gap: 2rem 2.5rem;
     }
-}
-@media (max-width: 768px) {
-    .software-grid {
-        grid-template-columns: 1fr;
+    .app-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: 16px;
+    }
+    .app-icon img {
+        width: 38px;
+        height: 38px;
     }
 }
